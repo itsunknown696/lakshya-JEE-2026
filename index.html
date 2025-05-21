@@ -3,507 +3,525 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta name="description" content="Lakshya JEE 2026 Preparation Portal">
-  <title>Physics Wallah</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+  <title>Physics Wallah - Lakshya JEE 2026</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --black: #000000;
-      --dark-grey: #222222;
-      --grey: #444444;
-      --light-grey: #888888;
-      --white: #ffffff;
-      --purple: #7e22ce;
-      --light-purple: #a855f7;
-    }
-
-    .light-mode {
-      --black: #ffffff;
-      --dark-grey: #f0f0f0;
-      --grey: #e0e0e0;
-      --light-grey: #888888;
-      --white: #000000;
-      --purple: #7e22ce;
-      --light-purple: #a855f7;
+      --deep-blue: #0a192f;
+      --light-blue: #64ffda;
+      --slate: #8892b0;
+      --light-slate: #ccd6f6;
+      --white: #e6f1ff;
+      --navy-shadow: rgba(2, 12, 27, 0.7);
     }
 
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
     }
 
     body {
-      font-family: 'Kanit', sans-serif;
-      background-color: var(--black);
+      background-color: var(--deep-blue);
       color: var(--white);
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      padding: 20px;
-      line-height: 1.5;
-      overflow-x: hidden;
-      transition: background-color 0.3s, color 0.3s;
+      align-items: center;
+      padding: 2rem;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
+    body.light-theme {
+      --deep-blue: #f0f4f8;
+      --light-blue: #007a7a;
+      --slate: #5a6a85;
+      --light-slate: #2d3748;
+      --white: #1a202c;
+      --navy-shadow: rgba(210, 220, 230, 0.7);
+      background-color: var(--deep-blue);
+    }
+
+    /* Popup Styles */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(5px);
+    }
+
+    .popup-content {
+      background: var(--deep-blue);
+      padding: 2rem;
+      border-radius: 15px;
+      max-width: 500px;
+      width: 90%;
+      border: 1px solid var(--light-blue);
+      box-shadow: 0 10px 30px var(--navy-shadow);
+      position: relative;
+    }
+
+    body.light-theme .popup-content {
+      background: var(--deep-blue);
+      border: 1px solid var(--light-blue);
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: transparent;
+      border: none;
+      color: var(--light-blue);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .popup-close:hover {
+      transform: rotate(90deg);
+    }
+
+    .popup-title {
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--light-blue);
+      margin-bottom: 1rem;
+      text-align: center;
+      font-size: 1.5rem;
+    }
+
+    .popup-message {
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .channel-list {
+      margin: 1.5rem 0;
+    }
+
+    .channel-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding: 0.8rem;
+      background: rgba(100, 255, 218, 0.05);
+      border-radius: 8px;
+      border: 1px solid rgba(100, 255, 218, 0.1);
+    }
+
+    body.light-theme .channel-item {
+      background: rgba(0, 122, 122, 0.05);
+      border: 1px solid rgba(0, 122, 122, 0.1);
+    }
+
+    .channel-icon {
+      margin-right: 1rem;
+      color: var(--light-blue);
+      font-size: 1.2rem;
+    }
+
+    .channel-link {
+      color: var(--light-blue);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      word-break: break-all;
+    }
+
+    .channel-link:hover {
+      text-decoration: underline;
+    }
+
+    .popup-note {
+      font-size: 0.9rem;
+      color: var(--slate);
+      text-align: center;
+      margin-top: 1rem;
+      font-style: italic;
+    }
+
+    /* Rest of your existing styles... */
     .container {
       width: 100%;
-      max-width: 500px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      z-index: 2;
+      max-width: 600px;
+      background: rgba(10, 25, 47, 0.85);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 10px 30px var(--navy-shadow);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(100, 255, 218, 0.1);
+      transition: all 0.3s ease;
     }
 
-    .header {
+    body.light-theme .container {
+      background: rgba(240, 244, 248, 0.85);
+      border: 1px solid rgba(0, 122, 122, 0.1);
+    }
+
+    header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      width: 100%;
-      margin-bottom: 24px;
+      margin-bottom: 2rem;
     }
 
-    .header h1 {
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--purple);
-      letter-spacing: 1px;
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem;
+      font-weight: 600;
+      background: linear-gradient(90deg, var(--light-blue), var(--white));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
     }
 
     .theme-toggle {
-      background: var(--dark-grey);
-      border: 1px solid var(--grey);
-      color: var(--white);
-      font-size: 20px;
-      cursor: pointer;
+      background: transparent;
+      border: 1px solid var(--light-blue);
+      color: var(--light-blue);
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
     }
 
     .theme-toggle:hover {
-      background: var(--grey);
+      background: rgba(100, 255, 218, 0.1);
+      transform: rotate(30deg);
+    }
+
+    body.light-theme .theme-toggle {
+      border-color: var(--light-blue);
+      color: var(--light-blue);
+    }
+
+    .search-container {
+      margin-bottom: 2rem;
     }
 
     .search-bar {
       display: flex;
-      width: 100%;
-      margin-bottom: 24px;
-      max-width: 500px;
+      background: rgba(100, 255, 218, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(100, 255, 218, 0.2);
+    }
+
+    body.light-theme .search-bar {
+      background: rgba(0, 122, 122, 0.1);
+      border: 1px solid rgba(0, 122, 122, 0.2);
     }
 
     .search-bar input {
       flex: 1;
-      padding: 14px 20px;
-      border: 1px solid var(--grey);
-      border-radius: 10px 0 0 10px;
-      font-size: 15px;
-      background-color: var(--dark-grey);
+      padding: 0.8rem 1rem;
+      background: transparent;
+      border: none;
       color: var(--white);
-      outline: none;
-      transition: all 0.3s;
+      font-size: 1rem;
     }
 
-    .search-bar input:focus {
-      border-color: var(--purple);
+    body.light-theme .search-bar input {
+      color: var(--white);
     }
 
     .search-bar input::placeholder {
-      color: var(--light-grey);
+      color: var(--slate);
     }
 
     .search-bar button {
-      padding: 0 20px;
-      background: var(--purple);
-      color: white;
+      padding: 0 1.5rem;
+      background: var(--light-blue);
+      color: var(--deep-blue);
       border: none;
-      border-radius: 0 10px 10px 0;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s;
+      font-weight: 500;
+      transition: all 0.25s ease;
+    }
+
+    body.light-theme .search-bar button {
+      background: var(--light-blue);
+      color: white;
     }
 
     .search-bar button:hover {
-      background: var(--light-purple);
+      background: #52d3b8;
     }
 
     .card {
-      background: var(--dark-grey);
-      border-radius: 10px;
-      width: 100%;
-      padding: 20px;
-      margin-bottom: 24px;
-      border: 1px solid var(--grey);
-      transition: all 0.3s;
+      background: rgba(100, 255, 218, 0.03);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(100, 255, 218, 0.1);
+      transition: all 0.25s ease;
+    }
+
+    body.light-theme .card {
+      background: rgba(0, 122, 122, 0.03);
+      border: 1px solid rgba(0, 122, 122, 0.1);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: var(--light-blue);
+      box-shadow: 0 10px 20px rgba(100, 255, 218, 0.1);
     }
 
     .card-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 1rem;
     }
 
-    .card-header h2 {
-      font-size: 24px;
-      margin: 0;
-      font-weight: 700;
-      color: var(--purple);
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      color: var(--light-blue);
     }
 
     .card img {
       width: 100%;
       border-radius: 8px;
-      margin: 20px 0;
-      aspect-ratio: 16/9;
-      object-fit: cover;
-      border: 1px solid var(--grey);
+      margin: 1rem 0;
+      border: 1px solid rgba(100, 255, 218, 0.2);
     }
 
-    .card-body {
-      font-size: 16px;
-      margin-bottom: 20px;
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 0.8rem;
+      margin: 1rem 0;
     }
 
-    .card-body strong {
-      display: block;
-      margin-bottom: 12px;
-      font-size: 18px;
-      color: var(--light-purple);
-      font-weight: 600;
-    }
-
-    .info {
-      font-size: 15px;
-      color: var(--white);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    .info span {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--grey);
-      padding: 6px 12px;
-      border-radius: 20px;
-      transition: all 0.3s;
-    }
-
-    .info i {
-      color: var(--light-purple);
-    }
-
-    .study-btn {
-      width: 100%;
-      background: var(--purple);
-      color: white;
-      padding: 16px;
-      border: none;
-      border-radius: 8px;
-      font-size: 18px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      transition: all 0.3s;
-    }
-
-    .study-btn:hover {
-      background: var(--light-purple);
-    }
-
-    .credits {
-      margin-top: 32px;
-      font-size: 14px;
-      color: var(--light-grey);
-      text-align: center;
-      line-height: 1.6;
-      width: 100%;
-    }
-
-    .credits p {
-      margin-bottom: 12px;
-    }
-
-    .credits strong {
-      font-weight: 600;
-      color: var(--light-purple);
-    }
-
-    .footer-btn {
-      display: inline-block;
-      padding: 8px 16px;
-      background: var(--dark-grey);
-      color: var(--white);
-      border: 1px solid var(--grey);
-      border-radius: 20px;
-      text-decoration: none;
-      font-weight: 500;
-      margin: 0 5px;
-      transition: all 0.3s;
-    }
-
-    .footer-btn:hover {
-      background: var(--grey);
-    }
-
-    .footer-btn i {
-      margin-right: 5px;
-    }
-
-    /* Simple Popup Styles */
-    .popup-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    .popup-box {
-      background-color: var(--dark-grey);
-      border-radius: 8px;
-      width: 90%;
-      max-width: 400px;
-      padding: 20px;
-      border: 1px solid var(--grey);
-      text-align: center;
-    }
-
-    .popup-title {
-      font-size: 20px;
-      margin-bottom: 15px;
-      color: var(--white);
-    }
-
-    .popup-message {
-      color: var(--light-grey);
-      margin-bottom: 20px;
-      font-size: 15px;
-    }
-
-    .popup-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .popup-btn {
-      padding: 10px;
+    .info-item {
+      background: rgba(100, 255, 218, 0.05);
+      padding: 0.6rem;
       border-radius: 6px;
-      border: 1px solid var(--grey);
-      background-color: var(--grey);
-      color: var(--white);
-      font-size: 15px;
+      font-size: 0.9rem;
+      text-align: center;
+      border: 1px solid rgba(100, 255, 218, 0.1);
+    }
+
+    body.light-theme .info-item {
+      background: rgba(0, 122, 122, 0.05);
+      border: 1px solid rgba(0, 122, 122, 0.1);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 1rem;
+      background: transparent;
+      color: var(--light-blue);
+      border: 1px solid var(--light-blue);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
       cursor: pointer;
-      text-decoration: none;
+      margin-top: 1rem;
+      transition: all 0.25s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      transition: all 0.3s;
+      gap: 0.5rem;
     }
 
-    .popup-btn:hover {
-      background-color: var(--light-grey);
+    .btn:hover {
+      background: rgba(100, 255, 218, 0.1);
     }
 
-    .popup-btn-telegram {
-      background-color: var(--purple);
-      border-color: var(--light-purple);
+    body.light-theme .btn:hover {
+      background: rgba(0, 122, 122, 0.1);
     }
 
-    .popup-btn-telegram:hover {
-      background-color: var(--light-purple);
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      color: var(--slate);
+      font-size: 0.9rem;
     }
 
-    .popup-close-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: none;
-      border: none;
-      font-size: 20px;
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-btn {
+      background: transparent;
+      border: 1px solid var(--slate);
+      color: var(--slate);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
       cursor: pointer;
-      color: var(--light-grey);
+      transition: all 0.25s ease;
+      font-size: 1.2rem;
     }
 
-    @media (max-width: 480px) {
-      .header h1 {
-        font-size: 24px;
+    .social-btn:hover {
+      color: var(--light-blue);
+      border-color: var(--light-blue);
+      transform: translateY(-3px);
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 1.5rem;
       }
       
-      .card {
-        padding: 16px;
+      h1 {
+        font-size: 1.5rem;
       }
       
-      .card-header h2 {
-        font-size: 20px;
-      }
-      
-      .study-btn {
-        font-size: 16px;
-        padding: 14px;
+      .info-grid {
+        grid-template-columns: 1fr 1fr;
       }
     }
   </style>
 </head>
 <body>
-  <div class="popup-overlay" id="channelPopup">
-    <div class="popup-box">
-      <button class="popup-close-btn" id="popupClose">&times;</button>
-      <h3 class="popup-title">Join Our Channels</h3>
-      <p class="popup-message">You need to join these channels to proceed</p>
-      <div class="popup-buttons">
-        <a href="https://t.me/Team_Delta_Official" target="_blank" class="popup-btn popup-btn-telegram">
-          <i class="bi bi-telegram"></i> Join Main Channel
-        </a>
-        <a href="https://t.me/+zp0kcItlrAExNjc9" target="_blank" class="popup-btn">
-          <i class="bi bi-link-45deg"></i> Join Backup Channel
-        </a>
+  <!-- Popup Overlay -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-content">
+      <button class="popup-close" id="popupClose">
+        <i class="bi bi-x"></i>
+      </button>
+      <h2 class="popup-title">Important Notice</h2>
+      <div class="popup-message">
+        To proceed and access all features, please join our official channels:
+      </div>
+      <div class="channel-list">
+        <div class="channel-item">
+          <i class="bi bi-telegram channel-icon"></i>
+          <a href="https://t.me/Team_Delta_Official" class="channel-link" target="_blank">Team Delta Official</a>
+        </div>
+        <div class="channel-item">
+          <i class="bi bi-megaphone channel-icon"></i>
+          <a href="https://t.me/+zp0kcItlrAExNjc9" class="channel-link" target="_blank">Updates Channel</a>
+        </div>
+      </div>
+      <div class="popup-note">
+        After joining, you can close this popup and continue to the website.
       </div>
     </div>
   </div>
 
+  <!-- Main Content -->
   <div class="container">
-    <div class="header">
+    <header>
       <h1>Physics Wallah</h1>
-      <div>
-        <button class="theme-toggle" id="themeToggle">
-          <i class="bi bi-moon-fill"></i>
-        </button>
-      </div>
-    </div>
+      <button class="theme-toggle" id="themeToggle">
+        <i class="bi bi-moon"></i>
+      </button>
+    </header>
 
-    <div class="search-bar">
-      <input type="text" placeholder="Search courses, materials..." id="searchInput">
-      <button id="searchButton"><i class="bi bi-search"></i></button>
+    <div class="search-container">
+      <div class="search-bar">
+        <input type="text" placeholder="Search courses, materials...">
+        <button><i class="bi bi-search"></i></button>
+      </div>
     </div>
 
     <div class="card">
       <div class="card-header">
         <h2>Lakshya JEE 2026</h2>
       </div>
-      <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/b0fd6211-8861-469d-b446-e16295ddb6c4.jpg" alt="Lakshya JEE 2026">
-      
-      <div class="card-body">
-        <strong>FOR JEE 2026</strong>
-        <div class="info">
-          <span><i class="bi bi-calendar-event"></i> Starts: Apr 7, 2025</span>
-          <span><i class="bi bi-mortarboard"></i> Class: 12th</span>
-          <span><i class="bi bi-journal-bookmark"></i> Exam: IIT-JEE</span>
-        </div>
+      <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/b0fd6211-8861-469d-b446-e16295ddb6c4.jpg" alt="Lakshya JEE">
+      <div class="info-grid">
+        <div class="info-item"><i class="bi bi-calendar"></i> Starts: Apr 7, 2025</div>
+        <div class="info-item"><i class="bi bi-mortarboard"></i> Class: 12th</div>
+        <div class="info-item"><i class="bi bi-journal"></i> Exam: IIT-JEE</div>
       </div>
-
-      <button class="study-btn" onclick="navigateTo('subjects.html')">
+      <button class="btn" onclick="navigateTo('subjects.html')">
         <i class="bi bi-book"></i> LET'S STUDY
       </button>
     </div>
 
-    <div class="credits">
+    <footer>
       <p>Created by <strong>Nomis</strong> | Team Delta</p>
-      <p>
-        <a href="https://t.me/ItsNomis" target="_blank" rel="noopener noreferrer" class="footer-btn">
-          <i class="bi bi-telegram"></i> Owner
-        </a>
-        <a href="https://t.me/team_delta_official" target="_blank" rel="noopener noreferrer" class="footer-btn">
-          <i class="bi bi-telegram"></i> Team Delta
-        </a>
-      </p>
-    </div>
+      <div class="social-links">
+        <button class="social-btn" onclick="window.open('https://t.me/ItsNomis', '_blank')">
+          <i class="bi bi-telegram"></i>
+        </button>
+        <button class="social-btn" onclick="window.open('https://t.me/team_delta_official', '_blank')">
+          <i class="bi bi-people"></i>
+        </button>
+      </div>
+    </footer>
   </div>
 
   <script>
-    // Theme toggle functionality
+    // Popup Handling
+    const popupOverlay = document.getElementById('popupOverlay');
+    const popupClose = document.getElementById('popupClose');
+    
+    // Show popup when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      // Check if user has already seen the popup
+      const hasSeenPopup = localStorage.getItem('hasSeenPopup');
+      if (!hasSeenPopup) {
+        popupOverlay.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+    });
+    
+    // Close popup
+    popupClose.addEventListener('click', () => {
+      popupOverlay.style.display = 'none';
+      document.body.style.overflow = 'auto';
+      localStorage.setItem('hasSeenPopup', 'true');
+    });
+
+    // Theme Toggle
     const themeToggle = document.getElementById('themeToggle');
-    const body = document.body;
     const icon = themeToggle.querySelector('i');
-
-    // Check for saved theme preference or use preferred color scheme
+    
+    // Check for saved theme preference
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light' || (!savedTheme && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-      body.classList.add('light-mode');
-      icon.classList.replace('bi-moon-fill', 'bi-sun-fill');
+    if (savedTheme === 'light') {
+      document.body.classList.add('light-theme');
+      icon.classList.replace('bi-moon', 'bi-sun');
     }
-
+    
     themeToggle.addEventListener('click', () => {
-      body.classList.toggle('light-mode');
-      if (body.classList.contains('light-mode')) {
-        icon.classList.replace('bi-moon-fill', 'bi-sun-fill');
+      document.body.classList.toggle('light-theme');
+      if (document.body.classList.contains('light-theme')) {
+        icon.classList.replace('bi-moon', 'bi-sun');
         localStorage.setItem('theme', 'light');
       } else {
-        icon.classList.replace('bi-sun-fill', 'bi-moon-fill');
+        icon.classList.replace('bi-sun', 'bi-moon');
         localStorage.setItem('theme', 'dark');
       }
     });
 
-    // Search functionality
-    const searchInput = document.getElementById('searchInput');
-    const searchButton = document.getElementById('searchButton');
-
-    const performSearch = () => {
-      const query = searchInput.value.trim();
-      if (query) {
-        alert(`Searching for: ${query}`);
-      }
-    };
-
-    searchButton.addEventListener('click', performSearch);
-    searchInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') performSearch();
-    });
-
     // Navigation
     function navigateTo(url) {
-      window.location.href = url;
+      document.body.style.opacity = '0';
+      document.body.style.transition = 'opacity 0.3s ease';
+      setTimeout(() => {
+        window.location.href = url;
+      }, 300);
     }
 
-    // Channel popup functionality
-    const channelPopup = document.getElementById('channelPopup');
-    const popupClose = document.getElementById('popupClose');
-    
-    // Show popup immediately when page loads
-    channelPopup.style.display = 'flex';
-    
-    // Close popup handler
-    popupClose.addEventListener('click', () => {
-      channelPopup.style.display = 'none';
-    });
-    
-    // Close when clicking outside popup
-    channelPopup.addEventListener('click', (e) => {
-      if (e.target === channelPopup) {
-        channelPopup.style.display = 'none';
-      }
-    });
-
-    // Security: Prevent opening links in the same tab
-    document.querySelectorAll('a[target="_blank"]').forEach(link => {
-      link.setAttribute('rel', 'noopener noreferrer');
+    window.addEventListener('pageshow', () => {
+      document.body.style.opacity = '1';
     });
   </script>
 </body>
