@@ -1,9 +1,8 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Physics Wallah - Lakshya JEE 2026</title>
+  <title>Physics Wallah</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
   <style>
@@ -30,7 +29,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 2rem;
+      padding: 1rem;
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
@@ -57,14 +56,15 @@
       align-items: center;
       z-index: 1000;
       backdrop-filter: blur(5px);
+      padding: 1rem;
     }
 
     .popup-content {
       background: var(--deep-blue);
-      padding: 2rem;
+      padding: 1.5rem;
       border-radius: 15px;
+      width: 100%;
       max-width: 500px;
-      width: 90%;
       border: 1px solid var(--light-blue);
       box-shadow: 0 10px 30px var(--navy-shadow);
       position: relative;
@@ -77,8 +77,8 @@
 
     .popup-close {
       position: absolute;
-      top: 15px;
-      right: 15px;
+      top: 10px;
+      right: 10px;
       background: transparent;
       border: none;
       color: var(--light-blue);
@@ -96,23 +96,24 @@
       color: var(--light-blue);
       margin-bottom: 1rem;
       text-align: center;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
     }
 
     .popup-message {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       line-height: 1.6;
+      font-size: 0.95rem;
     }
 
     .channel-list {
-      margin: 1.5rem 0;
+      margin: 1rem 0;
     }
 
     .channel-item {
       display: flex;
       align-items: center;
-      margin-bottom: 1rem;
-      padding: 0.8rem;
+      margin-bottom: 0.8rem;
+      padding: 0.7rem;
       background: rgba(100, 255, 218, 0.05);
       border-radius: 8px;
       border: 1px solid rgba(100, 255, 218, 0.1);
@@ -124,9 +125,9 @@
     }
 
     .channel-icon {
-      margin-right: 1rem;
+      margin-right: 0.8rem;
       color: var(--light-blue);
-      font-size: 1.2rem;
+      font-size: 1.1rem;
     }
 
     .channel-link {
@@ -134,6 +135,7 @@
       text-decoration: none;
       transition: all 0.3s ease;
       word-break: break-all;
+      font-size: 0.9rem;
     }
 
     .channel-link:hover {
@@ -141,20 +143,20 @@
     }
 
     .popup-note {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: var(--slate);
       text-align: center;
-      margin-top: 1rem;
+      margin-top: 0.8rem;
       font-style: italic;
     }
 
-    /* Rest of your existing styles... */
+    /* Main Container */
     .container {
       width: 100%;
       max-width: 600px;
       background: rgba(10, 25, 47, 0.85);
       border-radius: 20px;
-      padding: 2.5rem;
+      padding: 1.5rem;
       box-shadow: 0 10px 30px var(--navy-shadow);
       backdrop-filter: blur(5px);
       border: 1px solid rgba(100, 255, 218, 0.1);
@@ -166,16 +168,17 @@
       border: 1px solid rgba(0, 122, 122, 0.1);
     }
 
+    /* Header */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     h1 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: 600;
       background: linear-gradient(90deg, var(--light-blue), var(--white));
       -webkit-background-clip: text;
@@ -188,8 +191,8 @@
       background: transparent;
       border: 1px solid var(--light-blue);
       color: var(--light-blue);
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       display: grid;
       place-items: center;
@@ -207,8 +210,9 @@
       color: var(--light-blue);
     }
 
+    /* Search */
     .search-container {
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     .search-bar {
@@ -226,11 +230,11 @@
 
     .search-bar input {
       flex: 1;
-      padding: 0.8rem 1rem;
+      padding: 0.7rem 1rem;
       background: transparent;
       border: none;
       color: var(--white);
-      font-size: 1rem;
+      font-size: 0.95rem;
     }
 
     body.light-theme .search-bar input {
@@ -242,7 +246,7 @@
     }
 
     .search-bar button {
-      padding: 0 1.5rem;
+      padding: 0 1.2rem;
       background: var(--light-blue);
       color: var(--deep-blue);
       border: none;
@@ -260,11 +264,12 @@
       background: #52d3b8;
     }
 
+    /* Card */
     .card {
       background: rgba(100, 255, 218, 0.03);
       border-radius: 12px;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
+      padding: 1.2rem;
+      margin-bottom: 1.5rem;
       border: 1px solid rgba(100, 255, 218, 0.1);
       transition: all 0.25s ease;
     }
@@ -284,36 +289,40 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
     }
 
     h2 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       color: var(--light-blue);
     }
 
     .card img {
       width: 100%;
       border-radius: 8px;
-      margin: 1rem 0;
+      margin: 0.8rem 0;
       border: 1px solid rgba(100, 255, 218, 0.2);
     }
 
     .info-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 0.8rem;
-      margin: 1rem 0;
+      gap: 0.7rem;
+      margin: 0.8rem 0;
     }
 
     .info-item {
       background: rgba(100, 255, 218, 0.05);
-      padding: 0.6rem;
+      padding: 0.5rem;
       border-radius: 6px;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       text-align: center;
       border: 1px solid rgba(100, 255, 218, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
     }
 
     body.light-theme .info-item {
@@ -321,17 +330,18 @@
       border: 1px solid rgba(0, 122, 122, 0.1);
     }
 
+    /* Button */
     .btn {
       width: 100%;
-      padding: 1rem;
+      padding: 0.9rem;
       background: transparent;
       color: var(--light-blue);
       border: 1px solid var(--light-blue);
       border-radius: 8px;
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 500;
       cursor: pointer;
-      margin-top: 1rem;
+      margin-top: 0.8rem;
       transition: all 0.25s ease;
       display: flex;
       align-items: center;
@@ -347,32 +357,33 @@
       background: rgba(0, 122, 122, 0.1);
     }
 
+    /* Footer */
     footer {
       text-align: center;
-      margin-top: 2rem;
+      margin-top: 1.5rem;
       color: var(--slate);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
 
     .social-links {
       display: flex;
       justify-content: center;
-      gap: 1rem;
-      margin-top: 1rem;
+      gap: 0.8rem;
+      margin-top: 0.8rem;
     }
 
     .social-btn {
       background: transparent;
       border: 1px solid var(--slate);
       color: var(--slate);
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       display: grid;
       place-items: center;
       cursor: pointer;
       transition: all 0.25s ease;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
     }
 
     .social-btn:hover {
@@ -381,24 +392,60 @@
       transform: translateY(-3px);
     }
 
-    @media (max-width: 600px) {
-      .container {
-        padding: 1.5rem;
-      }
-      
+    /* Responsive Adjustments */
+    @media (max-width: 480px) {
       h1 {
         font-size: 1.5rem;
       }
       
+      h2 {
+        font-size: 1.2rem;
+      }
+      
       .info-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
+      }
+      
+      .info-item {
+        justify-content: flex-start;
+        padding: 0.5rem 0.7rem;
+      }
+      
+      .channel-item {
+        padding: 0.6rem;
+      }
+      
+      .popup-title {
+        font-size: 1.2rem;
+      }
+      
+      .popup-message {
+        font-size: 0.9rem;
+      }
+      
+      .channel-link {
+        font-size: 0.85rem;
+      }
+    }
+
+    @media (max-width: 350px) {
+      h1 {
+        font-size: 1.3rem;
+      }
+      
+      .container {
+        padding: 1rem;
+      }
+      
+      .card {
+        padding: 1rem;
       }
     }
   </style>
 </head>
 <body>
   <!-- Popup Overlay -->
-  <div class="popup-overlay" id="popupOverlay">
+  <div class="popup-overlay" id="popupOverlay" style="display: none;">
     <div class="popup-content">
       <button class="popup-close" id="popupClose">
         <i class="bi bi-x"></i>
@@ -480,6 +527,11 @@
         popupOverlay.style.display = 'flex';
         document.body.style.overflow = 'hidden';
       }
+      
+      // Check if mobile device
+      if (/Mobi|Android/i.test(navigator.userAgent)) {
+        document.body.style.fontSize = '14px';
+      }
     });
     
     // Close popup
@@ -523,6 +575,16 @@
     window.addEventListener('pageshow', () => {
       document.body.style.opacity = '1';
     });
+    
+    // Handle mobile viewport
+    function handleViewport() {
+      const viewport = document.querySelector('meta[name="viewport"]');
+      if (/Mobi|Android/i.test(navigator.userAgent)) {
+        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+      }
+    }
+    
+    handleViewport();
   </script>
 </body>
 </html>
