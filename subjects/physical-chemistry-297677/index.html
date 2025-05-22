@@ -3,28 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Physics</title>
+  <title>Physical Chemistry</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #6e00ff;
-      --secondary: #00f0ff;
-      --dark: #0a0a20;
-      --light: #f0f5ff;
-      --accent: #ff00aa;
+      --primary: #2ecc71;
+      --secondary: #27ae60;
+      --dark: #f8f9fa;
+      --light: #ffffff;
+      --accent: #16a085;
+      --text: #333;
+      --bubble-border: rgba(46, 204, 113, 0.4);
     }
     
+    /* Dark mode colors */
+    body.dark-mode {
+      --dark: #121212;
+      --light: #1e1e1e;
+      --text: #f0f0f0;
+      --primary: #3ddc84;
+      --secondary: #2ecc71;
+      --accent: #1abc9c;
+      --bubble-border: rgba(61, 220, 132, 0.4);
+    }
+
     body {
-      font-family: 'Kanit', sans-serif;
+      font-family: 'Poppins', sans-serif;
       background-color: var(--dark);
       margin: 0;
       padding: 0;
-      color: var(--light);
+      color: var(--text);
       overflow-x: hidden;
-      background-image: 
-        radial-gradient(circle at 10% 20%, rgba(110, 0, 255, 0.15) 0%, transparent 20%),
-        radial-gradient(circle at 90% 80%, rgba(0, 240, 255, 0.15) 0%, transparent 20%);
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     .header {
@@ -40,14 +51,14 @@
       background: none;
       border: none;
       cursor: pointer;
-      color: var(--light);
+      color: var(--secondary);
       margin-right: 12px;
       transition: all 0.3s ease;
       z-index: 2;
     }
 
     .back-btn:hover {
-      color: var(--secondary);
+      color: var(--accent);
       transform: translateX(-3px);
     }
 
@@ -56,10 +67,7 @@
       font-size: 24px;
       font-weight: 700;
       margin: 0;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      color: var(--secondary);
       text-transform: uppercase;
       letter-spacing: 1px;
       position: relative;
@@ -74,45 +82,26 @@
     }
 
     .card {
-      background: rgba(10, 10, 32, 0.7);
+      background: var(--light);
       border-radius: 16px;
       padding: 20px;
       margin-bottom: 16px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 4px 20px rgba(46, 204, 113, 0.1);
       display: flex;
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
-      border: 1px solid rgba(110, 0, 255, 0.3);
-      backdrop-filter: blur(8px);
+      border: 1px solid rgba(46, 204, 113, 0.2);
       z-index: 1;
     }
 
-    .card::before {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
-      z-index: -2;
-      filter: blur(8px);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-
     .card:hover {
-      transform: translateY(-5px) scale(1.02);
-      box-shadow: 0 12px 40px rgba(110, 0, 255, 0.4);
-      border-color: rgba(110, 0, 255, 0.6);
-    }
-
-    .card:hover::before {
-      opacity: 0.6;
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(46, 204, 113, 0.2);
+      border-color: var(--secondary);
     }
 
     .card-content {
@@ -125,17 +114,18 @@
       font-weight: 600;
       font-size: 18px;
       margin-bottom: 8px;
-      background: linear-gradient(90deg, var(--light), #d1d8ff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      color: var(--secondary);
     }
 
     .card-sub {
       font-size: 14px;
-      color: rgba(255, 255, 255, 0.7);
+      color: #666;
       display: flex;
       gap: 12px;
+    }
+
+    .dark-mode .card-sub {
+      color: #aaa;
     }
 
     .card-sub span {
@@ -155,8 +145,8 @@
       color: var(--accent);
     }
 
-    /* Particle background animation */
-    .particles {
+    /* Bubble background animation */
+    .bubbles {
       position: fixed;
       top: 0;
       left: 0;
@@ -164,43 +154,67 @@
       height: 100%;
       z-index: 0;
       pointer-events: none;
+      overflow: hidden;
     }
 
-    .particle {
+    .bubble {
       position: absolute;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      background: rgba(46, 204, 113, 0.1);
       border-radius: 50%;
-      filter: blur(2px);
-      animation: float linear infinite;
+      border: 1px solid var(--bubble-border);
+      animation: float-up linear infinite;
+      bottom: -100px;
     }
 
-    @keyframes float {
+    .dark-mode .bubble {
+      background: rgba(61, 220, 132, 0.05);
+    }
+
+    @keyframes float-up {
       0% {
-        transform: translateY(0) rotate(0deg);
+        transform: translateY(0) scale(1);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.3;
       }
       100% {
-        transform: translateY(-100vh) rotate(360deg);
+        transform: translateY(-100vh) scale(0.5);
+        opacity: 0;
       }
     }
 
-    /* Holographic effect */
-    .holographic-line {
-      position: absolute;
-      height: 1px;
-      width: 100%;
-      background: linear-gradient(90deg, transparent, var(--secondary), transparent);
-      opacity: 0.3;
-      animation: scan 8s linear infinite;
-      z-index: 0;
+    /* Theme toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      background: var(--light);
+      border: 1px solid rgba(46, 204, 113, 0.2);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
     }
 
-    @keyframes scan {
-      0% {
-        top: 0%;
-      }
-      100% {
-        top: 100%;
-      }
+    .dark-mode .theme-toggle {
+      border-color: rgba(61, 220, 132, 0.3);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    .theme-toggle i {
+      font-size: 20px;
+      color: var(--secondary);
     }
 
     /* Responsive */
@@ -222,84 +236,48 @@
       }
     }
 
-    /* Special animation for physics theme */
-    .quantum-dots {
+    /* Ripple effect */
+    .ripple-effect {
       position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      z-index: -1;
-      overflow: hidden;
-    }
-
-    .quantum-dot {
-      position: absolute;
-      width: 4px;
-      height: 4px;
       border-radius: 50%;
-      background-color: var(--secondary);
-      opacity: 0.3;
-      animation: quantum 15s infinite ease-in-out;
+      background: rgba(46, 204, 113, 0.3);
+      transform: scale(0);
+      animation: ripple 0.6s linear;
+      pointer-events: none;
+      width: 100px;
+      height: 100px;
+      margin-left: -50px;
+      margin-top: -50px;
     }
-
-    @keyframes quantum {
-      0%, 100% {
-        transform: translate(0, 0);
-        opacity: 0.1;
-      }
-      25% {
-        transform: translate(20vw, 30vh);
-        opacity: 0.6;
-      }
-      50% {
-        transform: translate(-15vw, 50vh);
-        opacity: 0.3;
-      }
-      75% {
-        transform: translate(10vw, -20vh);
-        opacity: 0.8;
-      }
+    
+    .dark-mode .ripple-effect {
+      background: rgba(61, 220, 132, 0.2);
     }
-
-    /* Glitch effect on hover */
-    .card:hover .card-title {
-      animation: glitch 0.5s linear infinite;
-    }
-
-    @keyframes glitch {
-      0% {
-        text-shadow: 2px 0 var(--primary), -2px 0 var(--accent);
-      }
-      25% {
-        text-shadow: -2px 0 var(--primary), 2px 0 var(--accent);
-      }
-      50% {
-        text-shadow: 2px 0 var(--accent), -2px 0 var(--primary);
-      }
-      75% {
-        text-shadow: -2px 0 var(--accent), 2px 0 var(--primary);
-      }
-      100% {
-        text-shadow: 2px 0 var(--primary), -2px 0 var(--accent);
+    
+    @keyframes ripple {
+      to {
+        transform: scale(4);
+        opacity: 0;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="quantum-dots" id="quantumDots"></div>
-  <div class="particles" id="particles"></div>
-  <div class="holographic-line"></div>
+  <div class="bubbles" id="bubbles"></div>
+
+  <div class="theme-toggle" id="themeToggle">
+    <i class="bi bi-moon" id="themeIcon"></i>
+  </div>
 
   <div class="container">
     <div class="header">
-      <button class="back-btn" onclick="window.location.href='../'">
-        <i class="bi bi-arrow-left"></i>
-      </button>
-      <h1> Physical Chemistry</h1>
-    </div>
-    
+<button class="back-btn" onclick="window.location.href='../'">
+  <i class="bi bi-arrow-left"></i>
+</button>
+<h1> Physical Chemistry</h1>
+</div>
+
             <div class="card" onclick="window.location.href='mind-maps-||-only-pdf-509717.html'">
                 <div class="card-content">
                     <div class="card-title">Mind Maps || Only PDF</div>
@@ -481,57 +459,32 @@
                 <div class="arrow">&rsaquo;</div>
             </div>
             
-  </div>
+</div>
+      <script>
+    // Create floating bubbles
+    const bubblesContainer = document.getElementById('bubbles');
+    const bubbleCount = 20;
     
-  <script>
-    // Create floating particles
-    const particlesContainer = document.getElementById('particles');
-    const particleCount = 30;
-    
-    for (let i = 0; i < particleCount; i++) {
-      const particle = document.createElement('div');
-      particle.classList.add('particle');
+    for (let i = 0; i < bubbleCount; i++) {
+      const bubble = document.createElement('div');
+      bubble.classList.add('bubble');
       
-      // Random size between 2px and 6px
-      const size = Math.random() * 4 + 2;
-      particle.style.width = `${size}px`;
-      particle.style.height = `${size}px`;
+      // Random size between 20px and 100px
+      const size = Math.random() * 80 + 20;
+      bubble.style.width = `${size}px`;
+      bubble.style.height = `${size}px`;
       
-      // Random position
-      particle.style.left = `${Math.random() * 100}vw`;
-      particle.style.top = `${Math.random() * 100}vh`;
-      
-      // Random animation duration between 20s and 50s
-      particle.style.animationDuration = `${Math.random() * 30 + 20}s`;
-      
-      // Random delay
-      particle.style.animationDelay = `${Math.random() * 10}s`;
-      
-      // Random opacity
-      particle.style.opacity = Math.random() * 0.5 + 0.1;
-      
-      particlesContainer.appendChild(particle);
-    }
-
-    // Create quantum dots
-    const quantumContainer = document.getElementById('quantumDots');
-    const dotCount = 15;
-    
-    for (let i = 0; i < dotCount; i++) {
-      const dot = document.createElement('div');
-      dot.classList.add('quantum-dot');
-      
-      // Random position
-      dot.style.left = `${Math.random() * 100}vw`;
-      dot.style.top = `${Math.random() * 100}vh`;
+      // Random position at bottom
+      bubble.style.left = `${Math.random() * 100}vw`;
       
       // Random animation duration between 10s and 20s
-      dot.style.animationDuration = `${Math.random() * 10 + 10}s`;
+      const duration = Math.random() * 10 + 10;
+      bubble.style.animationDuration = `${duration}s`;
       
       // Random delay
-      dot.style.animationDelay = `${Math.random() * 5}s`;
+      bubble.style.animationDelay = `${Math.random() * 5}s`;
       
-      quantumContainer.appendChild(dot);
+      bubblesContainer.appendChild(bubble);
     }
 
     // Add ripple effect to cards
@@ -560,31 +513,36 @@
       });
     });
 
-    // Add style for ripple effect
-    const style = document.createElement('style');
-    style.textContent = `
-      .ripple-effect {
-        position: absolute;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.7);
-        transform: scale(0);
-        animation: ripple 0.6s linear;
-        pointer-events: none;
-        width: 100px;
-        height: 100px;
-        margin-left: -50px;
-        margin-top: -50px;
-        mix-blend-mode: screen;
-      }
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const body = document.body;
+
+    // Check for saved theme preference or use preferred color scheme
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      body.classList.add('dark-mode');
+      themeIcon.classList.remove('bi-moon');
+      themeIcon.classList.add('bi-sun');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
       
-      @keyframes ripple {
-        to {
-          transform: scale(4);
-          opacity: 0;
-        }
+      if (body.classList.contains('dark-mode')) {
+        themeIcon.classList.remove('bi-moon');
+        themeIcon.classList.add('bi-sun');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        themeIcon.classList.remove('bi-sun');
+        themeIcon.classList.add('bi-moon');
+        localStorage.setItem('theme', 'light');
       }
-    `;
-    document.head.appendChild(style);
+    });
   </script>
-</body>
-</html>
+
+
+<script src="//cdn.jsdelivr.net/npm/eruda"></script></body><div id="eruda" style="all: initial;"></div><div class="__chobitsu-hide__" style="all: initial;"></div></html>
+   
