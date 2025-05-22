@@ -2,35 +2,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ch - 02 : Electric Potential And Dipole | Study Portal</title>
+    <title>Ch - 01 : Electric Charges and Fields</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
+<style>
         :root {
-            --primary: #2e7d32; /* Green 800 */
-            --primary-light: #4caf50; /* Green 500 */
-            --primary-lighter: #81c784; /* Green 300 */
-            --primary-dark: #1b5e20; /* Green 900 */
-            --text: #263238; /* Blue Grey 900 */
-            --text-light: #607d8b; /* Blue Grey 500 */
-            --bg: #f5f5f5; /* Grey 100 */
+            --primary: #7c4dff;
+            --primary-light: #9c7aff;
+            --text: #2d3748;
+            --text-light: #718096;
+            --bg: #f8fafc;
             --card-bg: #ffffff;
             --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .dark-mode {
-            --primary: #66bb6a; /* Green 400 */
-            --primary-light: #81c784; /* Green 300 */
-            --primary-lighter: #a5d6a7; /* Green 200 */
-            --primary-dark: #4caf50; /* Green 500 */
-            --text: #eceff1; /* Blue Grey 50 */
-            --text-light: #b0bec5; /* Blue Grey 200 */
-            --bg: #121212; /* Dark background */
-            --card-bg: #1e1e1e; /* Dark card */
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --primary: #9c7aff;
+            --primary-light: #b79aff;
+            --text: #f7fafc;
+            --text-light: #cbd5e0;
+            --bg: #1a202c;
+            --card-bg: #2d3748;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
 
         * {
@@ -67,7 +63,7 @@
             align-items: center;
             margin-bottom: 2rem;
             padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(46, 125, 50, 0.2); /* Green with alpha */
+            border-bottom: 1px solid rgba(124, 77, 255, 0.2);
         }
 
         .logo {
@@ -115,7 +111,7 @@
 
         .search-input:focus {
             outline: none;
-            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3); /* Green light with alpha */
+            box-shadow: 0 0 0 3px rgba(124, 77, 255, 0.3);
         }
 
         .search-icon {
@@ -142,7 +138,7 @@
         }
 
         .theme-toggle:hover {
-            background-color: rgba(76, 175, 80, 0.1); /* Green light with alpha */
+            background-color: rgba(124, 77, 255, 0.1);
             color: var(--primary);
         }
 
@@ -182,7 +178,7 @@
 
         .tab-btn:hover:not(.active) {
             color: var(--text);
-            background-color: rgba(76, 175, 80, 0.05); /* Green light with alpha */
+            background-color: rgba(124, 77, 255, 0.05);
         }
 
         .tab-content {
@@ -209,11 +205,12 @@
         .content-card {
             background-color: var(--card-bg);
             border-radius: 12px;
-            overflow: hidden;
+            padding: 1.5rem;
             box-shadow: var(--shadow);
             transition: var(--transition);
             position: relative;
-            border: 1px solid rgba(76, 175, 80, 0.1); /* Green light with alpha */
+            overflow: hidden;
+            border: 1px solid rgba(124, 77, 255, 0.1);
         }
 
         .content-card:hover {
@@ -238,27 +235,18 @@
             background-color: var(--primary-light);
         }
 
-        .content-thumbnail {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
-
-        .content-body {
-            padding: 1.5rem;
-        }
-
         .content-card a {
             text-decoration: none;
             color: var(--text);
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
         }
 
         .content-icon {
             font-size: 1.5rem;
             color: var(--primary);
-            margin-bottom: 1rem;
+            flex-shrink: 0;
         }
 
         .content-info {
@@ -267,15 +255,8 @@
 
         .content-title {
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
             transition: var(--transition);
-        }
-
-        .content-meta {
-            display: flex;
-            justify-content: space-between;
-            color: var(--text-light);
-            font-size: 0.9rem;
         }
 
         .content-card:hover .content-title {
@@ -287,184 +268,6 @@
             padding: 2rem;
             color: var(--text-light);
             display: none;
-            grid-column: 1 / -1;
-        }
-
-        .play-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
-            background-color: rgba(76, 175, 80, 0.8); /* Green light with alpha */
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .content-card:hover .play-button {
-            opacity: 1;
-        }
-
-        .play-button i {
-            color: white;
-            font-size: 1.5rem;
-            margin-left: 5px;
-        }
-
-        /* Footer Styles */
-        .footer {
-            margin-top: 3rem;
-            padding: 2rem 0;
-            text-align: center;
-            border-top: 1px solid rgba(76, 175, 80, 0.2); /* Green light with alpha */
-        }
-
-        .footer-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 1rem;
-        }
-
-        .footer-btn {
-            padding: 0.5rem 1.2rem;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            text-decoration: none;
-        }
-
-        .footer-btn:hover {
-            background-color: var(--primary-light);
-            transform: translateY(-2px);
-        }
-
-        .footer-btn i {
-            font-size: 1rem;
-        }
-
-        .copyright {
-            color: var(--text-light);
-            font-size: 0.9rem;
-            margin-top: 1rem;
-        }
-
-        /* Modal Styles */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 2rem;
-            width: 90%;
-            max-width: 500px;
-            position: relative;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            transform: translateY(20px);
-            transition: all 0.3s ease;
-        }
-
-        .modal-overlay.active .modal {
-            transform: translateY(0);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text-light);
-        }
-
-        .modal-close:hover {
-            color: var(--primary);
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-            text-align: center;
-        }
-
-        .modal-content {
-            margin-bottom: 1.5rem;
-            color: var(--text);
-            text-align: center;
-        }
-
-        .modal-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .modal-btn {
-            padding: 0.8rem;
-            border-radius: 8px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            transition: var(--transition);
-            text-decoration: none;
-        }
-
-        .modal-btn-primary {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .modal-btn-primary:hover {
-            background-color: var(--primary-light);
-        }
-
-        .modal-btn-secondary {
-            background-color: transparent;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-        }
-
-        .modal-btn-secondary:hover {
-            background-color: rgba(76, 175, 80, 0.1); /* Green light with alpha */
         }
 
         @media (max-width: 768px) {
@@ -486,41 +289,14 @@
             .content-grid {
                 grid-template-columns: 1fr;
             }
-
-            .footer-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .modal-buttons {
-                flex-direction: column;
-            }
         }
-    </style>
-</head>
+    </style></head>
 <body>
-    <!-- Modal Popup -->
-    <div class="modal-overlay" id="channelModal">
-        <div class="modal">
-            <button class="modal-close" id="modalClose">&times;</button>
-            <h3 class="modal-title">Important Notice</h3>
-            <p class="modal-content">You have to join these channels to proceed:</p>
-            <div class="modal-buttons">
-                <a href="https://t.me/Team_Delta_Official" target="_blank" class="modal-btn modal-btn-primary">
-                    <i class="fab fa-telegram"></i> Join Main Channel
-                </a>
-                <a href="https://t.me/+zp0kcItlrAExNjc9" target="_blank" class="modal-btn modal-btn-secondary">
-                    <i class="fab fa-telegram"></i> Join Backup Channel
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
+<div class="container">
         <div class="header">
             <div class="logo">
                 <i class="fas fa-atom"></i>
-                <span>Ch - 02 : Electric Potential And Dipole</span>
+                <span>Ch - 01 : Electric Charges and Fields</span>
             </div>
             
             <div class="controls">
@@ -546,462 +322,198 @@
         <div id="lectures" class="tab-content active">
             <h2 style="margin-bottom: 1.5rem; color: var(--primary);">Video Lectures</h2>
             <div class="content-grid" id="lecturesGrid">
-                
                 <div class="content-card" data-search="electric charges and fields 24 : application of gauss law (part four) || no dpp">
-                    <a href="https://d1d34p8vz63oiq.cloudfront.net/5ae918b6-0cb7-4fef-9a98-7c443888af42/master.mpd">
-                        <div class="content-thumbnail-container" style="position: relative;">
-                            <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/cb9997a4-a211-4c2b-a822-f402b141383e.png?height=180&width=320" alt="Electric Charges and Fields 24 : Application of Gauss Law (Part Four) || NO DPP" class="content-thumbnail">
-                            <div class="play-button">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <div class="content-body">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/5ae918b6-0cb7-4fef-9a98-7c443888af42/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
                             <div class="content-title">Electric Charges and Fields 24 : Application of Gauss Law (Part Four) || NO DPP</div>
-                            <div class="content-meta">
-                                <span>16 May 2025</span>
-                                <span><i class="far fa-clock"></i> 01:34:56</span>
-                            </div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 23 : application of gauss law (part three) || no dpp ">
-                    <a href="https://d1d34p8vz63oiq.cloudfront.net/ac928366-df1e-4e0a-9832-9b3a342ca605/master.mpd">
-                        <div class="content-thumbnail-container" style="position: relative;">
-                            <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/bff7f7a7-67b0-4596-b9af-ec6fcb0bbf05.png?height=180&width=320" alt="Electric Charges and Fields 23 : Application of Gauss Law (Part Three) || NO DPP " class="content-thumbnail">
-                            <div class="play-button">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <div class="content-body">
+<div class="content-card" data-search="electric charges and fields 23 : application of gauss law (part three) || no dpp ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/ac928366-df1e-4e0a-9832-9b3a342ca605/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
                             <div class="content-title">Electric Charges and Fields 23 : Application of Gauss Law (Part Three) || NO DPP </div>
-                            <div class="content-meta">
-                                <span>15 May 2025</span>
-                                <span><i class="far fa-clock"></i> 01:39:02</span>
-                            </div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 22 : application of gauss law (part two)">
-                    <a href="https://d1d34p8vz63oiq.cloudfront.net/3d4ebcc7-3da8-4117-a927-15b8123d25a5/master.mpd">
-                        <div class="content-thumbnail-container" style="position: relative;">
-                            <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/1fe3fb09-9d42-4122-8bd2-be35939ae084.png?height=180&width=320" alt="Electric Charges and Fields 22 : Application of Gauss Law (Part Two)" class="content-thumbnail">
-                            <div class="play-button">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <div class="content-body">
+<div class="content-card" data-search="electric charges and fields 22 : application of gauss law (part two)">
+                    <a href="https://highsp-44e15ca775f8.herokuapp.com/AgADSR2048317" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
                             <div class="content-title">Electric Charges and Fields 22 : Application of Gauss Law (Part Two)</div>
-                            <div class="content-meta">
-                                <span>14 May 2025</span>
-                                <span><i class="far fa-clock"></i> 01:33:52</span>
-                            </div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 21 : application of gauss law ">
-                    <a href="https://d1d34p8vz63oiq.cloudfront.net/b58c2b75-cb09-4837-9ac1-c515278b2f03/master.mpd">
-                        <div class="content-thumbnail-container" style="position: relative;">
-                            <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/fed61da0-53a5-45f5-a30d-0faa5ae3bdfc.png?height=180&width=320" alt="Electric Charges and Fields 21 : Application of Gauss Law " class="content-thumbnail">
-                            <div class="play-button">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <div class="content-body">
+<div class="content-card" data-search="electric charges and fields 21 : application of gauss law ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/b58c2b75-cb09-4837-9ac1-c515278b2f03/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
                             <div class="content-title">Electric Charges and Fields 21 : Application of Gauss Law </div>
-                            <div class="content-meta">
-                                <span>13 May 2025</span>
-                                <span><i class="far fa-clock"></i> 01:34:56</span>
-                            </div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 20 : advanced questions on gauss law || application of gauss law ">
-                    <a href="https://d1d34p8vz63oiq.cloudfront.net/d694af9a-75c7-4c94-895e-72cb33691458/master.mpd">
-                        <div class="content-thumbnail-container" style="position: relative;">
-                            <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/60e0e8a2-ac19-49ad-9077-0b1dea3dabf0.png?height=180&width=320" alt="Electric Charges and Fields 20 : Advanced Questions on Gauss Law || Application of Gauss Law " class="content-thumbnail">
-                            <div class="play-button">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <div class="content-body">
+<div class="content-card" data-search="electric charges and fields 20 : advanced questions on gauss law || application of gauss law ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/d694af9a-75c7-4c94-895e-72cb33691458/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
                             <div class="content-title">Electric Charges and Fields 20 : Advanced Questions on Gauss Law || Application of Gauss Law </div>
-                            <div class="content-meta">
-                                <span>12 May 2025</span>
-                                <span><i class="far fa-clock"></i> 01:33:40</span>
-                            </div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 19 : questions on gauss law || application of gauss law || no dpp || extra class || recorded">
-                    <a href="https://d1d34p8vz63oiq.cloudfront.net/80587ecc-7dc2-496f-a83a-0796b34ee69b/master.mpd">
-                        <div class="content-thumbnail-container" style="position: relative;">
-                            <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/77e1430e-7187-4e00-a81f-92b70fbff29f.png?height=180&width=320" alt="Electric Charges and Fields 19 : Questions on Gauss Law || Application of Gauss Law || NO DPP || Extra Class || Recorded" class="content-thumbnail">
-                            <div class="play-button">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <div class="content-body">
+<div class="content-card" data-search="electric charges and fields 19 : questions on gauss law || application of gauss law || no dpp || extra class || recorded">
+                    <a href="https://highsp-44e15ca775f8.herokuapp.com/AgADLR2048301" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
                             <div class="content-title">Electric Charges and Fields 19 : Questions on Gauss Law || Application of Gauss Law || NO DPP || Extra Class || Recorded</div>
-                            <div class="content-meta">
-                                <span>10 May 2025</span>
-                                <span><i class="far fa-clock"></i> 01:21:13</span>
-                            </div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 18 : questions on gauss law ">
-                    <a href="https://d1d34p8vz63oiq.cloudfront.net/0379c568-0dc0-4bd5-9d6d-45971ccfe4b0/master.mpd">
-                        <div class="content-thumbnail-container" style="position: relative;">
-                            <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/7edb55a4-902b-420a-8e20-fe4e83b731a0.png?height=180&width=320" alt="Electric Charges and Fields 18 : Questions on Gauss Law " class="content-thumbnail">
-                            <div class="play-button">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <div class="content-body">
+<div class="content-card" data-search="electric charges and fields 18 : questions on gauss law ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/0379c568-0dc0-4bd5-9d6d-45971ccfe4b0/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
                             <div class="content-title">Electric Charges and Fields 18 : Questions on Gauss Law </div>
-                            <div class="content-meta">
-                                <span>09 May 2025</span>
-                                <span><i class="far fa-clock"></i> 01:49:52</span>
-                            </div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 17 : question on projection rules || gaussian surface and important points || no dpp ">
-                    <a href="https://d1d34p8vz63oiq.cloudfront.net/12b43347-0a04-41e1-96ee-7742f1f02b3a/master.mpd">
-                        <div class="content-thumbnail-container" style="position: relative;">
-                            <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/10a39d6e-ad39-45f0-8503-c48457f3be09.png?height=180&width=320" alt="Electric Charges and Fields 17 : Question on Projection Rules || Gaussian Surface and Important Points || NO DPP " class="content-thumbnail">
-                            <div class="play-button">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <div class="content-body">
+<div class="content-card" data-search="electric charges and fields 17 : question on projection rules || gaussian surface and important points || no dpp ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/12b43347-0a04-41e1-96ee-7742f1f02b3a/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
                             <div class="content-title">Electric Charges and Fields 17 : Question on Projection Rules || Gaussian Surface and Important Points || NO DPP </div>
-                            <div class="content-meta">
-                                <span>08 May 2025</span>
-                                <span><i class="far fa-clock"></i> 01:53:34</span>
-                            </div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 16 : calculation of electric flux || projection rule and it's questions || gaussian surface and important points ">
-                    <a href="https://d1d34p8vz63oiq.cloudfront.net/27b1dab9-81be-436b-b705-95257450b3a5/master.mpd">
-                        <div class="content-thumbnail-container" style="position: relative;">
-                            <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/ff6d98c7-d767-4cb7-8ef5-da8254e2fab9.png?height=180&width=320" alt="Electric Charges and Fields 16 : Calculation of Electric Flux || Projection rule and It's Questions || Gaussian Surface and Important Points " class="content-thumbnail">
-                            <div class="play-button">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <div class="content-body">
+<div class="content-card" data-search="electric charges and fields 16 : calculation of electric flux || projection rule and it's questions || gaussian surface and important points ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/27b1dab9-81be-436b-b705-95257450b3a5/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
                             <div class="content-title">Electric Charges and Fields 16 : Calculation of Electric Flux || Projection rule and It's Questions || Gaussian Surface and Important Points </div>
-                            <div class="content-meta">
-                                <span>05 May 2025</span>
-                                <span><i class="far fa-clock"></i> 01:51:44</span>
-                            </div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 15 : advanced questions on force and field || no dpp || extra lecture || rescheduled @03:15 pm">
-                    <a href="https://d1d34p8vz63oiq.cloudfront.net/50f38764-08a3-428e-8868-eb497a228f4f/master.mpd">
-                        <div class="content-thumbnail-container" style="position: relative;">
-                            <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/9e195f40-bf13-4b9b-ba25-888e886e500b.png?height=180&width=320" alt="Electric Charges and Fields 15 : Advanced questions on force and field || NO DPP || Extra Lecture || Rescheduled @03:15 PM" class="content-thumbnail">
-                            <div class="play-button">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <div class="content-body">
+<div class="content-card" data-search="electric charges and fields 15 : advanced questions on force and field || no dpp || extra lecture || rescheduled @03:15 pm">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/50f38764-08a3-428e-8868-eb497a228f4f/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
                             <div class="content-title">Electric Charges and Fields 15 : Advanced questions on force and field || NO DPP || Extra Lecture || Rescheduled @03:15 PM</div>
-                            <div class="content-meta">
-                                <span>04 May 2025</span>
-                                <span><i class="far fa-clock"></i> 02:18:08</span>
-                            </div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 14 : electric flux || calculation of electric flux">
-                    <a href="https://d1d34p8vz63oiq.cloudfront.net/20a293cd-427c-4b1a-aebd-573d3ef6ed43/master.mpd">
-                        <div class="content-thumbnail-container" style="position: relative;">
-                            <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/a0baaba0-c8b9-4cfa-9c4d-fcd85a1b4eb5.png?height=180&width=320" alt="Electric Charges and Fields 14 : Electric Flux || Calculation of Electric Flux" class="content-thumbnail">
-                            <div class="play-button">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <div class="content-body">
+<div class="content-card" data-search="electric charges and fields 14 : electric flux || calculation of electric flux">
+                    <a href="https://highsp-44e15ca775f8.herokuapp.com/AgADjx2048312" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
                             <div class="content-title">Electric Charges and Fields 14 : Electric Flux || Calculation of Electric Flux</div>
-                            <div class="content-meta">
-                                <span>02 May 2025</span>
-                                <span><i class="far fa-clock"></i> 01:50:34</span>
-                            </div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges & fields 13 : questions on electric field lines || area vector and electric flux || no dpp || extra class ">
-                    <a href="https://d1d34p8vz63oiq.cloudfront.net/153b6d36-6f25-4aac-b068-c1bc9b622f3e/master.mpd">
-                        <div class="content-thumbnail-container" style="position: relative;">
-                            <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/d795649d-576a-4645-89bb-23bf559d44d1.png?height=180&width=320" alt="Electric Charges & Fields 13 : Questions on Electric Field Lines || Area Vector and Electric Flux || NO DPP || Extra Class " class="content-thumbnail">
-                            <div class="play-button">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <div class="content-body">
+<div class="content-card" data-search="electric charges & fields 13 : questions on electric field lines || area vector and electric flux || no dpp || extra class ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/153b6d36-6f25-4aac-b068-c1bc9b622f3e/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
                             <div class="content-title">Electric Charges & Fields 13 : Questions on Electric Field Lines || Area Vector and Electric Flux || NO DPP || Extra Class </div>
-                            <div class="content-meta">
-                                <span>01 May 2025</span>
-                                <span><i class="far fa-clock"></i> 01:51:20</span>
-                            </div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 12 : electric field lines || properties of electric field lines || questions || no dpp ">
-                    <a href="https://d1d34p8vz63oiq.cloudfront.net/c47a40f1-f60b-4010-82f3-9885302d0a60/master.mpd">
-                        <div class="content-thumbnail-container" style="position: relative;">
-                            <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/f773fdaa-97d2-49f9-aac6-6829839d22dc.png?height=180&width=320" alt="Electric Charges and Fields 12 : Electric Field Lines || Properties of Electric Field Lines || Questions || NO DPP " class="content-thumbnail">
-                            <div class="play-button">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <div class="content-body">
+<div class="content-card" data-search="electric charges and fields 12 : electric field lines || properties of electric field lines || questions || no dpp ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/c47a40f1-f60b-4010-82f3-9885302d0a60/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
                             <div class="content-title">Electric Charges and Fields 12 : Electric Field Lines || Properties of Electric Field Lines || Questions || NO DPP </div>
-                            <div class="content-meta">
-                                <span>28 Apr 2025</span>
-                                <span><i class="far fa-clock"></i> 01:48:08</span>
-                            </div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 11 : question on electric field intensity || no dpp || extra lecture">
-                    <a href="https://d1d34p8vz63oiq.cloudfront.net/e27a7ffa-b204-4ccb-a52d-c5d6a18dd9c5/master.mpd">
-                        <div class="content-thumbnail-container" style="position: relative;">
-                            <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/ac4b36de-7c18-491c-81cd-081f86fb3147.png?height=180&width=320" alt="Electric Charges and Fields 11 : Question on Electric Field Intensity || NO DPP || Extra Lecture" class="content-thumbnail">
-                            <div class="play-button">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <div class="content-body">
+<div class="content-card" data-search="electric charges and fields 11 : question on electric field intensity || no dpp || extra lecture">
+                    <a href="https://highsp-44e15ca775f8.herokuapp.com/AgADyh2048302" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
                             <div class="content-title">Electric Charges and Fields 11 : Question on Electric Field Intensity || NO DPP || Extra Lecture</div>
-                            <div class="content-meta">
-                                <span>27 Apr 2025</span>
-                                <span><i class="far fa-clock"></i> 03:06:54</span>
-                            </div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 10 : questions on electric field intensity || electric field in vector & cartesian form || electric field lines ">
-                    <a href="https://d1d34p8vz63oiq.cloudfront.net/17430052-fe29-4fd2-b215-dcbcf8d3a6f0/master.mpd">
-                        <div class="content-thumbnail-container" style="position: relative;">
-                            <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/06e5f383-d368-428b-92bb-5e03707afa2b.png?height=180&width=320" alt="Electric Charges and Fields 10 : Questions on Electric Field Intensity || Electric Field in Vector & Cartesian Form || Electric Field Lines " class="content-thumbnail">
-                            <div class="play-button">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <div class="content-body">
+<div class="content-card" data-search="electric charges and fields 10 : questions on electric field intensity || electric field in vector & cartesian form || electric field lines ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/17430052-fe29-4fd2-b215-dcbcf8d3a6f0/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
                             <div class="content-title">Electric Charges and Fields 10 : Questions on Electric Field Intensity || Electric Field in Vector & Cartesian Form || Electric Field Lines </div>
-                            <div class="content-meta">
-                                <span>25 Apr 2025</span>
-                                <span><i class="far fa-clock"></i> 01:50:20</span>
-                            </div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 09 : electric field intensity || charges in electric field || questions ">
-                    <a href="https://d1d34p8vz63oiq.cloudfront.net/e3e67193-fa00-45ad-bdea-7fdf7777078e/master.mpd">
-                        <div class="content-thumbnail-container" style="position: relative;">
-                            <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/06dec3c2-df07-40d8-b762-94676208cda0.png?height=180&width=320" alt="Electric Charges and Fields 09 : Electric Field Intensity || Charges in Electric Field || Questions " class="content-thumbnail">
-                            <div class="play-button">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <div class="content-body">
+<div class="content-card" data-search="electric charges and fields 09 : electric field intensity || charges in electric field || questions ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/e3e67193-fa00-45ad-bdea-7fdf7777078e/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
                             <div class="content-title">Electric Charges and Fields 09 : Electric Field Intensity || Charges in Electric Field || Questions </div>
-                            <div class="content-meta">
-                                <span>24 Apr 2025</span>
-                                <span><i class="far fa-clock"></i> 01:51:40</span>
-                            </div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 08 : questions on coulomb's law || introduction to electric field || no dpp">
-                    <a href="https://d1d34p8vz63oiq.cloudfront.net/a3101875-68f0-4dd5-9790-189fc2c8f6b1/master.mpd">
-                        <div class="content-thumbnail-container" style="position: relative;">
-                            <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/92c22327-52de-4aef-98a7-ae7c7f51d3fc.png?height=180&width=320" alt="Electric Charges and Fields 08 : Questions on Coulomb's Law || Introduction to Electric Field || NO DPP" class="content-thumbnail">
-                            <div class="play-button">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <div class="content-body">
+<div class="content-card" data-search="electric charges and fields 08 : questions on coulomb's law || introduction to electric field || no dpp">
+                    <a href="https://highsp-44e15ca775f8.herokuapp.com/AgADf32048291" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
                             <div class="content-title">Electric Charges and Fields 08 : Questions on Coulomb's Law || Introduction to Electric Field || NO DPP</div>
-                            <div class="content-meta">
-                                <span>21 Apr 2025</span>
-                                <span><i class="far fa-clock"></i> 01:48:32</span>
-                            </div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search=" electric charges and fields 07 : question on coulomb's law (part three) || no dpp || extra lecture">
-                    <a href="https://d1d34p8vz63oiq.cloudfront.net/edb2bb0c-188d-4c15-96be-77806044d57a/master.mpd">
-                        <div class="content-thumbnail-container" style="position: relative;">
-                            <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/2040cc6f-095e-420f-a393-b622f39597c0.png?height=180&width=320" alt=" Electric Charges and Fields 07 : Question on Coulomb's Law (Part Three) || NO DPP || Extra Lecture" class="content-thumbnail">
-                            <div class="play-button">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <div class="content-body">
+<div class="content-card" data-search=" electric charges and fields 07 : question on coulomb's law (part three) || no dpp || extra lecture">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/edb2bb0c-188d-4c15-96be-77806044d57a/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
                             <div class="content-title"> Electric Charges and Fields 07 : Question on Coulomb's Law (Part Three) || NO DPP || Extra Lecture</div>
-                            <div class="content-meta">
-                                <span>20 Apr 2025</span>
-                                <span><i class="far fa-clock"></i> 03:21:14</span>
-                            </div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 06 : question on coulomb's law (part two)">
-                    <a href="https://d1d34p8vz63oiq.cloudfront.net/ebc3720e-f528-4f7f-93fb-f84e1bb2e598/master.mpd">
-                        <div class="content-thumbnail-container" style="position: relative;">
-                            <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/6443d9aa-5b42-4b10-be1b-f30ed0d23123.png?height=180&width=320" alt="Electric Charges and Fields 06 : Question on Coulomb's Law (Part Two)" class="content-thumbnail">
-                            <div class="play-button">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <div class="content-body">
+<div class="content-card" data-search="electric charges and fields 06 : question on coulomb's law (part two)">
+                    <a href="https://highsp-44e15ca775f8.herokuapp.com/AgAD4A2048280" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
                             <div class="content-title">Electric Charges and Fields 06 : Question on Coulomb's Law (Part Two)</div>
-                            <div class="content-meta">
-                                <span>18 Apr 2025</span>
-                                <span><i class="far fa-clock"></i> 01:50:12</span>
-                            </div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 05 : question on coulomb's law || rescheduled @ 4:35 pm ">
-                    <a href="https://d1d34p8vz63oiq.cloudfront.net/a3730f44-d427-4c39-b8cf-c2e8828c1b0b/master.mpd">
-                        <div class="content-thumbnail-container" style="position: relative;">
-                            <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/3ec42de9-d176-4419-a8a2-5175b3fa3b43.png?height=180&width=320" alt="Electric Charges and Fields 05 : Question on Coulomb's Law || Rescheduled @ 4:35 PM " class="content-thumbnail">
-                            <div class="play-button">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <div class="content-body">
+<div class="content-card" data-search="electric charges and fields 05 : question on coulomb's law || rescheduled @ 4:35 pm ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/a3730f44-d427-4c39-b8cf-c2e8828c1b0b/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
                             <div class="content-title">Electric Charges and Fields 05 : Question on Coulomb's Law || Rescheduled @ 4:35 PM </div>
-                            <div class="content-meta">
-                                <span>17 Apr 2025</span>
-                                <span><i class="far fa-clock"></i> 01:18:32</span>
-                            </div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 04 : charges in medium, || vector form of coulomb’s law || questions ">
-                    <a href="https://d1d34p8vz63oiq.cloudfront.net/1a7098c7-ea99-4ebe-9d58-fba4ae036719/master.mpd">
-                        <div class="content-thumbnail-container" style="position: relative;">
-                            <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/6cc0bac9-b611-480e-a0e3-bbba1ca82fed.png?height=180&width=320" alt="Electric Charges and Fields 04 : Charges in Medium, || Vector Form of Coulomb’s Law || Questions " class="content-thumbnail">
-                            <div class="play-button">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <div class="content-body">
+<div class="content-card" data-search="electric charges and fields 04 : charges in medium, || vector form of coulomb’s law || questions ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/1a7098c7-ea99-4ebe-9d58-fba4ae036719/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
                             <div class="content-title">Electric Charges and Fields 04 : Charges in Medium, || Vector Form of Coulomb’s Law || Questions </div>
-                            <div class="content-meta">
-                                <span>14 Apr 2025</span>
-                                <span><i class="far fa-clock"></i> 01:50:28</span>
-                            </div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 03 : coulomb's law || important analysis || questions ">
-                    <a href="https://d1d34p8vz63oiq.cloudfront.net/4836fe84-e7a7-4c06-ad0e-dd027b5254be/master.mpd">
-                        <div class="content-thumbnail-container" style="position: relative;">
-                            <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/6ddb2d87-0816-4557-8563-d6a513c37720.png?height=180&width=320" alt="Electric Charges and Fields 03 : Coulomb's Law || Important Analysis || Questions " class="content-thumbnail">
-                            <div class="play-button">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <div class="content-body">
+<div class="content-card" data-search="electric charges and fields 03 : coulomb's law || important analysis || questions ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/4836fe84-e7a7-4c06-ad0e-dd027b5254be/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
                             <div class="content-title">Electric Charges and Fields 03 : Coulomb's Law || Important Analysis || Questions </div>
-                            <div class="content-meta">
-                                <span>11 Apr 2025</span>
-                                <span><i class="far fa-clock"></i> 01:49:00</span>
-                            </div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 02 : questions on charges || method of charging a body || coulomb's law || important analysis ">
-                    <a href="https://d1d34p8vz63oiq.cloudfront.net/20632b8c-46b7-4a38-82ec-d0d0565be36c/master.mpd">
-                        <div class="content-thumbnail-container" style="position: relative;">
-                            <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/8f489c69-276d-4841-9d90-3f83ed243746.png?height=180&width=320" alt="Electric Charges and Fields 02 : Questions on Charges || Method of Charging a Body || Coulomb's Law || Important Analysis " class="content-thumbnail">
-                            <div class="play-button">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <div class="content-body">
+<div class="content-card" data-search="electric charges and fields 02 : questions on charges || method of charging a body || coulomb's law || important analysis ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/20632b8c-46b7-4a38-82ec-d0d0565be36c/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
                             <div class="content-title">Electric Charges and Fields 02 : Questions on Charges || Method of Charging a Body || Coulomb's Law || Important Analysis </div>
-                            <div class="content-meta">
-                                <span>10 Apr 2025</span>
-                                <span><i class="far fa-clock"></i> 02:03:32</span>
-                            </div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 01 : electric charges || properties of charges || questions || no dpp ">
-                    <a href="https://d1d34p8vz63oiq.cloudfront.net/380e94f7-b294-438a-89a8-08f108c2ea3f/master.mpd">
-                        <div class="content-thumbnail-container" style="position: relative;">
-                            <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/6fd1dacf-f9fb-4b70-b06b-297ba702da17.png?height=180&width=320" alt="Electric Charges and Fields 01 : Electric Charges || Properties of Charges || Questions || NO DPP " class="content-thumbnail">
-                            <div class="play-button">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <div class="content-body">
+<div class="content-card" data-search="electric charges and fields 01 : electric charges || properties of charges || questions || no dpp ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/380e94f7-b294-438a-89a8-08f108c2ea3f/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
                             <div class="content-title">Electric Charges and Fields 01 : Electric Charges || Properties of Charges || Questions || NO DPP </div>
-                            <div class="content-meta">
-                                <span>07 Apr 2025</span>
-                                <span><i class="far fa-clock"></i> 01:52:09</span>
-                            </div>
                         </div>
                     </a>
-                </div>
-                        
+                </div>    
             </div>
             <div class="no-results" id="lecturesNoResults">
                 <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem;"></i>
@@ -1013,367 +525,198 @@
         <div id="notes" class="tab-content">
             <h2 style="margin-bottom: 1.5rem; color: var(--primary);">Study Notes</h2>
             <div class="content-grid" id="notesGrid">
-                
                 <div class="content-card" data-search="electric charges and fields 24 : class notes || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/255d68d7-cca6-4e37-99bc-7beece5477bd.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-file-pdf content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields 24 : Class Notes || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/255d68d7-cca6-4e37-99bc-7beece5477bd.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields 24 : Class Notes || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 23 : class notes || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/12d33ced-69d3-4af4-a3fb-2716f462a278.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-file-pdf content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields 23 : Class Notes || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields 23 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/12d33ced-69d3-4af4-a3fb-2716f462a278.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields 23 : Class Notes || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 22 : class notes || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/dda44e80-b7a1-43ae-87c5-d59bd1ccf686.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-file-pdf content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields 22 : Class Notes || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields 22 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/dda44e80-b7a1-43ae-87c5-d59bd1ccf686.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields 22 : Class Notes || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 21 : class notes || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/2609954b-b772-44cd-9e46-eac6a23e4b1f.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-file-pdf content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields 21 : Class Notes || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields 21 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/2609954b-b772-44cd-9e46-eac6a23e4b1f.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields 21 : Class Notes || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 20 : class notes || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/fd5119f2-33c1-4f6f-b6eb-2be5c777c4cf.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-file-pdf content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields 20 : Class Notes || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields 20 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/fd5119f2-33c1-4f6f-b6eb-2be5c777c4cf.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields 20 : Class Notes || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 19 : class notes || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/6c1dcc59-eff9-445e-88be-9149fb37e3c6.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-file-pdf content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields 19 : Class Notes || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields 19 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/6c1dcc59-eff9-445e-88be-9149fb37e3c6.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields 19 : Class Notes || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 18 : class notes || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/6a56839b-fb6d-49d8-9247-f738261314d1.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-file-pdf content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields 18 : Class Notes || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields 18 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/6a56839b-fb6d-49d8-9247-f738261314d1.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields 18 : Class Notes || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 17 : class notes || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/990c7d84-bdc5-4663-8221-a7736ab9b8be.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-file-pdf content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields 17 : Class Notes || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields 17 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/990c7d84-bdc5-4663-8221-a7736ab9b8be.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields 17 : Class Notes || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 16 : class notes || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/65877f2f-5535-42a2-947b-041092b84878.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-file-pdf content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields 16 : Class Notes || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields 16 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/65877f2f-5535-42a2-947b-041092b84878.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields 16 : Class Notes || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 15 : class notes || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/93ffc34a-6d94-4753-a77a-54bbae2c51e7.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-file-pdf content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields 15 : Class Notes || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields 15 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/93ffc34a-6d94-4753-a77a-54bbae2c51e7.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields 15 : Class Notes || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 14 : class notes || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/a63ba059-2f0e-4895-b348-61f728fe5423.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-file-pdf content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields 14 : Class Notes || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields 14 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/a63ba059-2f0e-4895-b348-61f728fe5423.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields 14 : Class Notes || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 13 : class notes || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/b99b4403-ef51-45e1-ae79-3d4af0b850d9.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-file-pdf content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields 13 : Class Notes || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields 13 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/b99b4403-ef51-45e1-ae79-3d4af0b850d9.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields 13 : Class Notes || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 12 : class notes || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/fd27d882-a3a9-4f4d-a24e-a40ef697a64e.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-file-pdf content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields 12 : Class Notes || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields 12 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/fd27d882-a3a9-4f4d-a24e-a40ef697a64e.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields 12 : Class Notes || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 11 : class notes || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/b7f92685-68ec-42c5-9766-8fd89a0e60f7.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-file-pdf content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields 11 : Class Notes || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields 11 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/b7f92685-68ec-42c5-9766-8fd89a0e60f7.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields 11 : Class Notes || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 10 : class notes || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/d939b89d-5d42-4501-9f4d-fc3f8f084323.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-file-pdf content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields 10 : Class Notes || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields 10 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/d939b89d-5d42-4501-9f4d-fc3f8f084323.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields 10 : Class Notes || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 09 : class notes || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/07a4abf7-98ef-447e-8dfd-406ed8e71798.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-file-pdf content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields 09 : Class Notes || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields 09 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/07a4abf7-98ef-447e-8dfd-406ed8e71798.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields 09 : Class Notes || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 08 : class notes || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/f48d874b-380d-445d-a8a6-3f7348d65f8c.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-file-pdf content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields 08 : Class Notes || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields 08 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/f48d874b-380d-445d-a8a6-3f7348d65f8c.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields 08 : Class Notes || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 07 : class notes || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/63f6eac1-52ea-4592-bb54-8d109520e806.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-file-pdf content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields 07 : Class Notes || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields 07 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/63f6eac1-52ea-4592-bb54-8d109520e806.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields 07 : Class Notes || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 06 : class notes || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/8cd8f974-3f17-472f-a5e4-c5ad0dac4ec7.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-file-pdf content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields 06 : Class Notes || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields 06 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/8cd8f974-3f17-472f-a5e4-c5ad0dac4ec7.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields 06 : Class Notes || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 05 : class notes || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/b72071c8-e585-4ef0-a3e1-b6ec9fd8c3b5.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-file-pdf content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields 05 : Class Notes || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields 05 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/b72071c8-e585-4ef0-a3e1-b6ec9fd8c3b5.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields 05 : Class Notes || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 04 : class notes || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/8dee61e4-839d-417d-b85f-a46394a8a243.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-file-pdf content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields 04 : Class Notes || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields 04 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/8dee61e4-839d-417d-b85f-a46394a8a243.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields 04 : Class Notes || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 03 : class notes || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/3fefc735-06cb-471c-9a37-b6b8b427aa0a.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-file-pdf content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields 03 : Class Notes || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields 03 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/3fefc735-06cb-471c-9a37-b6b8b427aa0a.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields 03 : Class Notes || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields 02 : class notes || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/7ae32662-53d2-4320-8653-64880560bfbe.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-file-pdf content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields 02 : Class Notes || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields 02 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/7ae32662-53d2-4320-8653-64880560bfbe.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields 02 : Class Notes || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges & fields 01 : class notes || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/2cb776b8-5f7f-4d3b-8038-faa11eaaee46.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-file-pdf content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges & Fields 01 : Class Notes || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges & fields 01 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/2cb776b8-5f7f-4d3b-8038-faa11eaaee46.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges & Fields 01 : Class Notes || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-                
             </div>
             <div class="no-results" id="notesNoResults">
                 <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem;"></i>
@@ -1385,350 +728,224 @@
         <div id="dpp" class="tab-content">
             <h2 style="margin-bottom: 1.5rem; color: var(--primary);">Daily Practice Problems</h2>
             <div class="content-grid" id="dppGrid">
-                
                 <div class="content-card" data-search="electric charges and fields : dpp 15 (of lec 22) || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/6d435ceb-cefa-4916-b167-b9962147363d.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-pen-fancy content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields : DPP 15 (of lec 22) || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/6d435ceb-cefa-4916-b167-b9962147363d.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields : DPP 15 (of lec 22) || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields : dpp 14 (of lec 21) || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/f32a8d3a-4c03-4fbc-8fd3-0c9d70770bd3.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-pen-fancy content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields : DPP 14 (of lec 21) || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields : dpp 14 (of lec 21) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/f32a8d3a-4c03-4fbc-8fd3-0c9d70770bd3.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields : DPP 14 (of lec 21) || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields : dpp 13 (of lec 20) || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/6c22cfa1-fc5a-4ae5-8452-d0530f09663a.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-pen-fancy content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields : DPP 13 (of lec 20) || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields : dpp 13 (of lec 20) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/6c22cfa1-fc5a-4ae5-8452-d0530f09663a.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields : DPP 13 (of lec 20) || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields : dpp 12 (of lec 18) || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/cc928ffa-982a-42ba-b326-5767785216a6.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-pen-fancy content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields : DPP 12 (of lec 18) || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields : dpp 12 (of lec 18) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/cc928ffa-982a-42ba-b326-5767785216a6.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields : DPP 12 (of lec 18) || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields : dpp 11 (of lec 16) || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/7b928d1b-560b-46c7-9f0a-2c1eed1ccd08.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-pen-fancy content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields : DPP 11 (of lec 16) || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields : dpp 11 (of lec 16) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/7b928d1b-560b-46c7-9f0a-2c1eed1ccd08.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields : DPP 11 (of lec 16) || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields : dpp 10 (of lec 14) || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/d00d6f40-21d0-4df5-a8e7-dfb8dba834fd.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-pen-fancy content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields : DPP 10 (of lec 14) || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields : dpp 10 (of lec 14) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/d00d6f40-21d0-4df5-a8e7-dfb8dba834fd.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields : DPP 10 (of lec 14) || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields : dpp 09 (extra dpp) || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/127ef735-7ff8-4f46-b25c-a284180dafa0.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-pen-fancy content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields : DPP 09 (Extra DPP) || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields : dpp 09 (extra dpp) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/127ef735-7ff8-4f46-b25c-a284180dafa0.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields : DPP 09 (Extra DPP) || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields : dpp 08 (extra dpp) || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/aca04c03-d472-44a7-ae9e-dc84d3d2bce2.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-pen-fancy content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields : DPP 08 (Extra DPP) || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields : dpp 08 (extra dpp) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/aca04c03-d472-44a7-ae9e-dc84d3d2bce2.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields : DPP 08 (Extra DPP) || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields : dpp 07 (of lec 10) || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/5fbc0322-0c3f-40d9-bfa8-daf4394c9dd4.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-pen-fancy content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields : DPP 07 (of lec 10) || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields : dpp 07 (of lec 10) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/5fbc0322-0c3f-40d9-bfa8-daf4394c9dd4.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields : DPP 07 (of lec 10) || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields : dpp 06 (of lec 09) || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/46bacae9-706b-45a9-8566-81f67747e741.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-pen-fancy content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields : DPP 06 (of lec 09) || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields : dpp 06 (of lec 09) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/46bacae9-706b-45a9-8566-81f67747e741.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields : DPP 06 (of lec 09) || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields : dpp 05 (of lec 06) || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/d761e531-43d9-42d1-9b26-d9e10e6ef239.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-pen-fancy content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields : DPP 05 (of lec 06) || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields : dpp 05 (of lec 06) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/d761e531-43d9-42d1-9b26-d9e10e6ef239.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields : DPP 05 (of lec 06) || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields : dpp 04 (of lec 05) || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/b7b950dd-0273-430d-a610-eeb17d6bf4c4.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-pen-fancy content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields : DPP 04 (of lec 05) || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields : dpp 04 (of lec 05) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/b7b950dd-0273-430d-a610-eeb17d6bf4c4.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields : DPP 04 (of lec 05) || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges & fields : dpp 03 (of lec 04) || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/90bd456e-52ac-4558-a4dd-664289832064.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-pen-fancy content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges & Fields : DPP 03 (of lec 04) || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges & fields : dpp 03 (of lec 04) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/90bd456e-52ac-4558-a4dd-664289832064.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges & Fields : DPP 03 (of lec 04) || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields : dpp 02 (of lec 03) || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/a3f77b4b-4d3a-47b1-8bda-8f665261bfea.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-pen-fancy content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields : DPP 02 (of lec 03) || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields : dpp 02 (of lec 03) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/a3f77b4b-4d3a-47b1-8bda-8f665261bfea.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields : DPP 02 (of lec 03) || Lakshya JEE 2026</div>
                         </div>
                     </a>
                 </div>
-                
-
-                <div class="content-card" data-search="electric charges and fields : dpp 01 (of lec 02) || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/666a89b9-6e75-4d69-9a5c-5162a72f3a9a.pdf" target="_blank" rel="noopener noreferrer">
-                        <div class="content-body">
-                            <i class="fas fa-pen-fancy content-icon"></i>
-                            <div class="content-info">
-                                <div class="content-title">Electric Charges and Fields : DPP 01 (of lec 02) || Lakshya JEE 2026</div>
-                                <div class="content-meta">
-                                    <span>PDF Document</span>
-                                </div>
-                            </div>
+<div class="content-card" data-search="electric charges and fields : dpp 01 (of lec 02) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/666a89b9-6e75-4d69-9a5c-5162a72f3a9a.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Electric Charges and Fields : DPP 01 (of lec 02) || Lakshya JEE 2026</div>
                         </div>
                     </a>
-                </div>
-                
+                </div>           
             </div>
             <div class="no-results" id="dppNoResults">
                 <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem;"></i>
                 <p>No matching DPPs found</p>
             </div>
         </div>
-
-        <!-- Footer Section -->
-        <div class="footer">
-            <div class="footer-buttons">
-                <a href="http://www.aboutnomis.carrd.co" target="_blank" class="footer-btn">
-                    <i class="fas fa-user"></i> Owner - Nomis
-                </a>
-                <a href="http://www.aboutnomis.carrd.co" target="_blank" class="footer-btn">
-                    <i class="fas fa-globe"></i> Web
-                </a>
-                <a href="https://t.me/team_delta_official" target="_blank" class="footer-btn">
-                    <i class="fab fa-telegram"></i> Team Delta Official
-                </a>
-            </div>
-            <p class="copyright">© 2025 Study Portal. All rights reserved.</p>
-        </div>
     </div>
     
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    // Theme Toggle
-    const themeToggle = document.getElementById('themeToggle');
-    const icon = themeToggle.querySelector('i');
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.body.classList.add('dark-mode');
-        icon.classList.replace('fa-moon', 'fa-sun');
-    }
-
-    themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        if (document.body.classList.contains('dark-mode')) {
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const icon = themeToggle.querySelector('i');
+        
+        // Check for saved preference or use system preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.body.classList.add('dark-mode');
             icon.classList.replace('fa-moon', 'fa-sun');
-            localStorage.setItem('theme', 'dark');
-        } else {
-            icon.classList.replace('fa-sun', 'fa-moon');
-            localStorage.setItem('theme', 'light');
         }
-    });
-
-    // Tab Switching
-    const tabButtons = document.querySelectorAll('.tab-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
-    const tabIndicator = document.getElementById('tabIndicator');
-
-    function updateTabIndicator(activeBtn) {
-        const btnRect = activeBtn.getBoundingClientRect();
-        const tabsRect = activeBtn.parentElement.getBoundingClientRect();
-        tabIndicator.style.width = `${btnRect.width}px`;
-        tabIndicator.style.left = `${btnRect.left - tabsRect.left}px`;
-    }
-
-    function setActiveTab(tabId) {
-        tabButtons.forEach(btn => {
-            const isActive = btn.dataset.tab === tabId;
-            btn.classList.toggle('active', isActive);
-            if (isActive) updateTabIndicator(btn);
-        });
-
-        tabContents.forEach(content => {
-            content.classList.toggle('active', content.id === tabId);
-        });
-    }
-
-    tabButtons.forEach(btn => {
-        btn.addEventListener('click', () => setActiveTab(btn.dataset.tab));
-    });
-
-    // Initialize tab indicator
-    const initialActive = document.querySelector('.tab-btn.active');
-    if (initialActive) updateTabIndicator(initialActive);
-
-    // Search Functionality
-    const searchInput = document.getElementById('searchInput');
-    searchInput.addEventListener('input', function () {
-        const searchTerm = this.value.toLowerCase();
-
-        ['lectures', 'notes', 'dpp'].forEach(tab => {
-            const grid = document.getElementById(`${tab}Grid`);
-            const noResults = document.getElementById(`${tab}NoResults`);
-            let visibleItems = 0;
-
-            if (grid) {
-                const items = grid.querySelectorAll('.content-card');
-                items.forEach(item => {
-                    const matches = item.dataset.search.includes(searchTerm);
-                    item.style.display = matches ? 'block' : 'none';
-                    if (matches) visibleItems++;
-                });
-
-                noResults.style.display = visibleItems === 0 ? 'block' : 'none';
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
             }
         });
-    });
-
-    // Modal Functionality
-    const channelModal = document.getElementById('channelModal');
-    const modalClose = document.getElementById('modalClose');
-
-    setTimeout(() => {
-        channelModal.classList.add('active');
-    }, 1000);
-
-    modalClose.addEventListener('click', () => {
-        channelModal.classList.remove('active');
-    });
-
-    channelModal.addEventListener('click', (e) => {
-        if (e.target === channelModal) {
-            channelModal.classList.remove('active');
+        
+        // Tab Switching
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const tabIndicator = document.getElementById('tabIndicator');
+        
+        function setActiveTab(tabId) {
+            // Update buttons
+            tabButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.tab === tabId) {
+                    btn.classList.add('active');
+                    // Move indicator
+                    const btnRect = btn.getBoundingClientRect();
+                    const tabsRect = btn.parentElement.getBoundingClientRect();
+                    tabIndicator.style.width = `${btnRect.width}px`;
+                    tabIndicator.style.left = `${btnRect.left - tabsRect.left}px`;
+                }
+            });
+            
+            // Update contents
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+                if (content.id === tabId) {
+                    content.classList.add('active');
+                }
+            });
         }
-    });
-});
-</script>
+        
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => setActiveTab(btn.dataset.tab));
+        });
+        
+        // Initialize tab indicator position
+        const activeBtn = document.querySelector('.tab-btn.active');
+        if (activeBtn) {
+            const btnRect = activeBtn.getBoundingClientRect();
+            const tabsRect = activeBtn.parentElement.getBoundingClientRect();
+            tabIndicator.style.width = `${btnRect.width}px`;
+            tabIndicator.style.left = `${btnRect.left - tabsRect.left}px`;
+        }
+        
+        // Search Functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            // Search in each tab
+            ['lectures', 'notes', 'dpp'].forEach(tab => {
+                const grid = document.getElementById(`${tab}Grid`);
+                const noResults = document.getElementById(`${tab}NoResults`);
+                let visibleItems = 0;
+                
+                if (grid) {
+                    const items = grid.querySelectorAll('.content-card');
+                    items.forEach(item => {
+                        const matches = item.dataset.search.includes(searchTerm);
+                        item.style.display = matches ? 'block' : 'none';
+                        if (matches) visibleItems++;
+                    });
+                    
+                    // Show/hide no results message
+                    noResults.style.display = visibleItems === 0 ? 'block' : 'none';
+                }
+            });
+        });
+    </script>
+    
 </body>
 </html>
+    
