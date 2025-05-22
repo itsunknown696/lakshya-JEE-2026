@@ -1,0 +1,727 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ch-02 : Matrices</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+        :root {
+            --primary: #7c4dff;
+            --primary-light: #9c7aff;
+            --text: #2d3748;
+            --text-light: #718096;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dark-mode {
+            --primary: #9c7aff;
+            --primary-light: #b79aff;
+            --text: #f7fafc;
+            --text-light: #cbd5e0;
+            --bg: #1a202c;
+            --card-bg: #2d3748;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: var(--transition);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            opacity: 0;
+            animation: fadeIn 0.8s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(124, 77, 255, 0.2);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .search-container {
+            position: relative;
+            width: 300px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            border-radius: 50px;
+            border: none;
+            background-color: var(--card-bg);
+            color: var(--text);
+            box-shadow: var(--shadow);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(124, 77, 255, 0.3);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background-color: rgba(124, 77, 255, 0.1);
+            color: var(--primary);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .tab-indicator {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 3px;
+            transition: var(--transition);
+            z-index: 1;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-light);
+            position: relative;
+            border-radius: 8px 8px 0 0;
+            transition: var(--transition);
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+        }
+
+        .tab-btn:hover:not(.active) {
+            color: var(--text);
+            background-color: rgba(124, 77, 255, 0.05);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .content-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(124, 77, 255, 0.1);
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-light);
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .content-card:hover::before {
+            width: 6px;
+            background-color: var(--primary-light);
+        }
+
+        .content-card a {
+            text-decoration: none;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .content-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .content-info {
+            flex-grow: 1;
+        }
+
+        .content-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            transition: var(--transition);
+        }
+
+        .content-card:hover .content-title {
+            color: var(--primary);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-light);
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+            
+            .search-container {
+                width: 100%;
+            }
+            
+            .tabs {
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style></head>
+<body>
+<div class="container">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-atom"></i>
+                <span>Ch-02 : Matrices</span>
+            </div>
+            
+            <div class="controls">
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Search materials..." id="searchInput">
+                </div>
+                
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab-indicator" id="tabIndicator"></div>
+            <button class="tab-btn active" data-tab="lectures">Lectures</button>
+            <button class="tab-btn" data-tab="notes">Notes</button>
+            <button class="tab-btn" data-tab="dpp">DPP</button>
+        </div>
+        
+        <!-- Lectures Tab -->
+        <div id="lectures" class="tab-content active">
+            <h2 style="margin-bottom: 1.5rem; color: var(--primary);">Video Lectures</h2>
+            <div class="content-grid" id="lecturesGrid">
+                <div class="content-card" data-search="matrices 14 : mixed question practice on matrices ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/c5d44750-39a2-483a-9793-7f888033de65/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 14 : Mixed Question Practice on Matrices </div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices 13 : cayley hamilton theorem || practice problems || no dpp">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/892cfdcf-24d4-4476-80b1-936806eb10fe/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 13 : Cayley Hamilton Theorem || Practice Problems || NO DPP</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices 12 : gauss jordan method || cayley hamilton theorem">
+                    <a href="https://highsp-44e15ca775f8.herokuapp.com/AgADfx2050136" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 12 : Gauss Jordan Method || Cayley Hamilton Theorem</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices 11 : practice problems on inverse of a square matrix || gauss jordan method || no dpp ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/b36f47ec-08b9-4858-a1b0-90cdce14c0cf/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 11 : Practice Problems on Inverse of a Square Matrix || Gauss Jordan Method || NO DPP </div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices 10 : practice problems on properties of adjoint || inverse of a square matrix">
+                    <a href="https://youtu.be/f3ahUsRQRx0?si=GTUOOR9g-GNRdzqw" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 10 : Practice Problems on Properties of Adjoint || Inverse of a Square Matrix</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices 09 : properties of adjoint of a matrix || inverse of a square matrix || practice problems || no dpp ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/635ce88a-d8e1-4c98-8606-03ebae90d508/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 09 : Properties of Adjoint of a Matrix || Inverse of a Square Matrix || Practice Problems || NO DPP </div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices 08 : revising p & c || p & c based problems on matrices || practice problems || no dpp || extra class ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/f09a9b4d-b698-4568-bba5-39621731b9c0/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 08 : Revising P & C || P & C Based Problems on Matrices || Practice Problems || NO DPP || Extra Class </div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices 07 : practice problems || orthogonal matrix || adjoint of a matrix || no dpp || rescheduled @ 06:10 pm ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/1ef65c64-a44b-4588-bbaa-fffb62ae67f3/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 07 : Practice Problems || Orthogonal Matrix || Adjoint of a Matrix || NO DPP || Rescheduled @ 06:10 PM </div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices 06 : transpose of a matrix || symmetric & skew symmetric matrices || practice problems ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/9720719e-d9f8-4cb9-83a6-0b05172f0521/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 06 : Transpose of a Matrix || Symmetric & Skew Symmetric Matrices || Practice Problems </div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices 05 : types of square matrices based on higher powers || practice problems || no dpp">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/eed9d4e9-405a-441f-a80b-cbfae84eba10/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 05 : Types of Square Matrices Based on Higher Powers || Practice Problems || NO DPP</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices 04 : more question & pyq on matrix multiplication || higher powers of square matrix || practice problems">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/399bcd9c-f9dd-4dfe-b053-6cdf08b59c8c/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 04 : More Question & PYQ on Matrix Multiplication || Higher Powers of Square Matrix || Practice Problems</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices 03 : practice problems || properties of matrix multiplication || higher power of square matrix ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/b5e9425b-8e1b-408f-b19b-357bca120600/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 03 : Practice Problems || Properties of Matrix Multiplication || Higher Power of Square Matrix </div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices 02 : algebra of matrices || trace of a matrix || multiplication of matrices || properties of matrix multiplication || rescheduled @ 06:10 pm ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/e81abf86-72d0-41f3-b3b7-4574ecde7123/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 02 : Algebra of Matrices || Trace of a Matrix || Multiplication of Matrices || Properties of Matrix Multiplication || Rescheduled @ 06:10 PM </div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices 01 : introduction to matrices || special type of matrices || determinant of a square matrix || algebra of matrices || no dpp">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/48f5e015-4c97-4d73-9b59-def59c1014b7/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 01 : Introduction to Matrices || Special Type of Matrices || Determinant of a Square Matrix || Algebra of Matrices || NO DPP</div>
+                        </div>
+                    </a>
+                </div>    
+            </div>
+            <div class="no-results" id="lecturesNoResults">
+                <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                <p>No matching lectures found</p>
+            </div>
+        </div>
+        
+        <!-- Notes Tab -->
+        <div id="notes" class="tab-content">
+            <h2 style="margin-bottom: 1.5rem; color: var(--primary);">Study Notes</h2>
+            <div class="content-grid" id="notesGrid">
+                <div class="content-card" data-search="matrices 14 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/602608c1-a968-459f-bef8-ce44cc1c6b28.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 14 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices 13 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/8edd4062-cdda-43aa-b308-dafda11b8cbf.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 13 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices 12 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/77083f22-a783-41db-8bac-da674807d209.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 12 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices 11 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/3776b695-beaf-4766-a200-e079c7b844d3.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 11 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices 10 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/2b3c29f4-7649-4a43-be1b-272c4c66ef9d.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 10 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices 09 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/cb202749-12e0-4746-a656-8cd5bb1c9b6a.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 09 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices 08 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/9b0b3333-f8d5-4db5-9e8f-b17a393406b5.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 08 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices 07 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/4f87a9dd-9a48-4fff-bd34-e453c6e91887.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 07 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices 06 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/24bacda8-4d68-43e8-a17c-704aaa1c9ed1.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 06 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices 05 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/cfce9259-b916-4cdb-846c-d8723008ee8e.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 05 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices 04 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/b57d798e-778b-4962-b15d-1ee72372a815.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 04 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices 03 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/f4c04998-d3ed-4554-96eb-8d51e5acd89f.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 03 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices 02 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/185fe014-082d-4dd3-a941-85a7e81b28fd.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 02 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices 01 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/a8cf02eb-3e55-4395-a7d9-10a59165e62c.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices 01 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="no-results" id="notesNoResults">
+                <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                <p>No matching notes found</p>
+            </div>
+        </div>
+        
+        <!-- DPP Tab -->
+        <div id="dpp" class="tab-content">
+            <h2 style="margin-bottom: 1.5rem; color: var(--primary);">Daily Practice Problems</h2>
+            <div class="content-grid" id="dppGrid">
+                <div class="content-card" data-search="matrices : dpp 07 (of lec 14) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/650b414c-1b1b-4007-986e-f1318468eb61.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices : DPP 07 (of lec 14) || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices : dpp 06 (of lec 12) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/044a5812-2338-471c-bfe0-ffbe18c1f468.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices : DPP 06 (of lec 12) || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices : dpp 05 (of lec 10) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/cd0821b9-6ba7-4f12-ae56-647ffaff79c6.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices : DPP 05 (of lec 10) || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices : dpp 04 (of lec 06) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/37d243ce-b32c-4751-be50-9dc6dc885180.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices : DPP 04 (of lec 06) || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices : dpp 03 (of lec 04) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/8af0c3a1-47b3-4afe-a7f3-fdbeb4ae690f.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices : DPP 03 (of lec 04) || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices : dpp 02 (of lec 03) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/e4d3cd67-1b3b-4227-aeb7-c0f1fbb51030.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices : DPP 02 (of lec 03) || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="matrices : dpp 01 (of lec 02) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/9b1bad73-61d9-4abc-b4bf-2d0bfecd016e.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Matrices : DPP 01 (of lec 02) || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>           
+            </div>
+            <div class="no-results" id="dppNoResults">
+                <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                <p>No matching DPPs found</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const icon = themeToggle.querySelector('i');
+        
+        // Check for saved preference or use system preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.body.classList.add('dark-mode');
+            icon.classList.replace('fa-moon', 'fa-sun');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // Tab Switching
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const tabIndicator = document.getElementById('tabIndicator');
+        
+        function setActiveTab(tabId) {
+            // Update buttons
+            tabButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.tab === tabId) {
+                    btn.classList.add('active');
+                    // Move indicator
+                    const btnRect = btn.getBoundingClientRect();
+                    const tabsRect = btn.parentElement.getBoundingClientRect();
+                    tabIndicator.style.width = `${btnRect.width}px`;
+                    tabIndicator.style.left = `${btnRect.left - tabsRect.left}px`;
+                }
+            });
+            
+            // Update contents
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+                if (content.id === tabId) {
+                    content.classList.add('active');
+                }
+            });
+        }
+        
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => setActiveTab(btn.dataset.tab));
+        });
+        
+        // Initialize tab indicator position
+        const activeBtn = document.querySelector('.tab-btn.active');
+        if (activeBtn) {
+            const btnRect = activeBtn.getBoundingClientRect();
+            const tabsRect = activeBtn.parentElement.getBoundingClientRect();
+            tabIndicator.style.width = `${btnRect.width}px`;
+            tabIndicator.style.left = `${btnRect.left - tabsRect.left}px`;
+        }
+        
+        // Search Functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            // Search in each tab
+            ['lectures', 'notes', 'dpp'].forEach(tab => {
+                const grid = document.getElementById(`${tab}Grid`);
+                const noResults = document.getElementById(`${tab}NoResults`);
+                let visibleItems = 0;
+                
+                if (grid) {
+                    const items = grid.querySelectorAll('.content-card');
+                    items.forEach(item => {
+                        const matches = item.dataset.search.includes(searchTerm);
+                        item.style.display = matches ? 'block' : 'none';
+                        if (matches) visibleItems++;
+                    });
+                    
+                    // Show/hide no results message
+                    noResults.style.display = visibleItems === 0 ? 'block' : 'none';
+                }
+            });
+        });
+    </script>
+    
+</body>
+</html>
+    

@@ -1,0 +1,655 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ch-01 : Determinants</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+        :root {
+            --primary: #7c4dff;
+            --primary-light: #9c7aff;
+            --text: #2d3748;
+            --text-light: #718096;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dark-mode {
+            --primary: #9c7aff;
+            --primary-light: #b79aff;
+            --text: #f7fafc;
+            --text-light: #cbd5e0;
+            --bg: #1a202c;
+            --card-bg: #2d3748;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: var(--transition);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            opacity: 0;
+            animation: fadeIn 0.8s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(124, 77, 255, 0.2);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .search-container {
+            position: relative;
+            width: 300px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            border-radius: 50px;
+            border: none;
+            background-color: var(--card-bg);
+            color: var(--text);
+            box-shadow: var(--shadow);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(124, 77, 255, 0.3);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background-color: rgba(124, 77, 255, 0.1);
+            color: var(--primary);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .tab-indicator {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 3px;
+            transition: var(--transition);
+            z-index: 1;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-light);
+            position: relative;
+            border-radius: 8px 8px 0 0;
+            transition: var(--transition);
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+        }
+
+        .tab-btn:hover:not(.active) {
+            color: var(--text);
+            background-color: rgba(124, 77, 255, 0.05);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .content-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(124, 77, 255, 0.1);
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-light);
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .content-card:hover::before {
+            width: 6px;
+            background-color: var(--primary-light);
+        }
+
+        .content-card a {
+            text-decoration: none;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .content-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .content-info {
+            flex-grow: 1;
+        }
+
+        .content-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            transition: var(--transition);
+        }
+
+        .content-card:hover .content-title {
+            color: var(--primary);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-light);
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+            
+            .search-container {
+                width: 100%;
+            }
+            
+            .tabs {
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style></head>
+<body>
+<div class="container">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-atom"></i>
+                <span>Ch-01 : Determinants</span>
+            </div>
+            
+            <div class="controls">
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Search materials..." id="searchInput">
+                </div>
+                
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab-indicator" id="tabIndicator"></div>
+            <button class="tab-btn active" data-tab="lectures">Lectures</button>
+            <button class="tab-btn" data-tab="notes">Notes</button>
+            <button class="tab-btn" data-tab="dpp">DPP</button>
+        </div>
+        
+        <!-- Lectures Tab -->
+        <div id="lectures" class="tab-content active">
+            <h2 style="margin-bottom: 1.5rem; color: var(--primary);">Video Lectures</h2>
+            <div class="content-grid" id="lecturesGrid">
+                <div class="content-card" data-search="determinants 10 : advance question practice || no dpp || extra lecture ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/58c3afcb-d860-47f6-be5b-122cad0f6a03/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Determinants 10 : Advance Question Practice || NO DPP || Extra Lecture </div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="determinants 09 : question practice on cramer's rule ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/ca28fefc-9bee-4be8-a453-37d361cabc35/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Determinants 09 : Question Practice on Cramer's Rule </div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="determinants 08 : cramer's rule || question practice || no dpp ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/e87ad718-ec35-49c2-abc5-6240a6a4d07c/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Determinants 08 : Cramer's Rule || Question Practice || NO DPP </div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="determinants 07 : question practice on multiplication of determinants || an important property || more question practice on properties of determinants ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/830cc632-7066-48b2-a225-dc2b730adce2/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Determinants 07 : Question Practice on Multiplication of Determinants || An Important Property || More Question Practice on Properties of Determinants </div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="determinants 06 : more question practice on properties of determinants || multiplication of determinants">
+                    <a href="https://youtu.be/qOSXATL02og?si=rOYHYiuHTBeOM57A" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Determinants 06 : More Question Practice on Properties of Determinants || Multiplication of Determinants</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="determinants 05 : practice problems || some special determinants || no dpp">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/f8908382-3ba6-42f4-a477-7bf3ce5b6239/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Determinants 05 : Practice Problems || Some Special Determinants || NO DPP</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="determinants 04 : properties of determinants || practice problems || no dpp ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/65c16f46-809e-4897-98d8-b6a73ba9a66c/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Determinants 04 : Properties of Determinants || Practice Problems || NO DPP </div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="determinants 03 : properties of determinant || no dpp ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/9d79f461-0689-43c1-80ef-e46a4e76c63b/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Determinants 03 : Properties of Determinant || NO DPP </div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="determinants 02 : minor of an elements || cofactor of an element || expansion of determinants in terms of cofactors || area of triangle || properties of determinants">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/a306cb91-cbc6-4b77-8f8a-a67ac9c82fa9/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Determinants 02 : Minor of an Elements || Cofactor of an Element || Expansion of Determinants in Terms of Cofactors || Area of Triangle || Properties of Determinants</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="determinants 01 : marg darshan || defining determinants & expansion of determinant || no dpp ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/e32cfb2d-a7fa-435d-aabc-dceffbbc6970/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Determinants 01 : Marg Darshan || Defining Determinants & Expansion of Determinant || NO DPP </div>
+                        </div>
+                    </a>
+                </div>    
+            </div>
+            <div class="no-results" id="lecturesNoResults">
+                <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                <p>No matching lectures found</p>
+            </div>
+        </div>
+        
+        <!-- Notes Tab -->
+        <div id="notes" class="tab-content">
+            <h2 style="margin-bottom: 1.5rem; color: var(--primary);">Study Notes</h2>
+            <div class="content-grid" id="notesGrid">
+                <div class="content-card" data-search="determinants 10 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/e740d2ec-0295-4272-9b0d-2b27b74f7f07.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Determinants 10 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="determinants 09 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/a6dd0669-8455-4353-8d7b-71d128992eda.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Determinants 09 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="determinants 08 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/c985a2ab-1d86-4303-ba36-ed746ce7abb0.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Determinants 08 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="determinants 07 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/d1151177-91cf-404c-bd8b-ad5f98d2cfca.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Determinants 07 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="determinants 06 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/29d3c2c2-281b-4224-af51-56c9912121a6.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Determinants 06 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="determinants 05 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/20586a27-8757-452a-9da6-dedd1741a9c5.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Determinants 05 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="determinants 04 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/74fd34a2-6d11-46ae-a74c-ac589ae736b6.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Determinants 04 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="determinants 03 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/1c6ac4b0-8688-4093-ab84-72cdf3787f9c.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Determinants 03 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="determinants 02 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/9420dd4a-0c8c-47ac-b993-f1f81a49fb16.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Determinants 02 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="determinants 01 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/ec515e68-bf22-4019-a13f-7bd03eb171f2.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Determinants 01 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="no-results" id="notesNoResults">
+                <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                <p>No matching notes found</p>
+            </div>
+        </div>
+        
+        <!-- DPP Tab -->
+        <div id="dpp" class="tab-content">
+            <h2 style="margin-bottom: 1.5rem; color: var(--primary);">Daily Practice Problems</h2>
+            <div class="content-grid" id="dppGrid">
+                <div class="content-card" data-search="determinants : dpp 06 (extra dpp) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/044c79d7-1f4a-4854-92c3-8c748051de6d.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Determinants : DPP 06 (Extra DPP) || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="determinants : dpp 05 (extra dpp) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/c5e93069-0252-4dbb-a1be-90d77a7baf28.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Determinants : DPP 05 (Extra DPP) || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="determinants : dpp 04 (of lec 09) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/89aa0f5f-c189-4f9a-9bc5-a8bca3aefe72.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Determinants : DPP 04 (of lec 09) || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="determinants : dpp 03 (of lec 07) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/dce9ef6f-5d06-4ece-b1ab-e9253de8ce3e.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Determinants : DPP 03 (of lec 07) || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="determinants : dpp 02 (of lec 06) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/7bfee7a8-6393-4c8b-b848-8769d4adfe0f.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Determinants : DPP 02 (of lec 06) || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="determinants : dpp 01 (of lec 02) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/438b1349-6438-4f63-b02b-f18fea53bd7b.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Determinants : DPP 01 (of lec 02) || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>           
+            </div>
+            <div class="no-results" id="dppNoResults">
+                <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                <p>No matching DPPs found</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const icon = themeToggle.querySelector('i');
+        
+        // Check for saved preference or use system preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.body.classList.add('dark-mode');
+            icon.classList.replace('fa-moon', 'fa-sun');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // Tab Switching
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const tabIndicator = document.getElementById('tabIndicator');
+        
+        function setActiveTab(tabId) {
+            // Update buttons
+            tabButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.tab === tabId) {
+                    btn.classList.add('active');
+                    // Move indicator
+                    const btnRect = btn.getBoundingClientRect();
+                    const tabsRect = btn.parentElement.getBoundingClientRect();
+                    tabIndicator.style.width = `${btnRect.width}px`;
+                    tabIndicator.style.left = `${btnRect.left - tabsRect.left}px`;
+                }
+            });
+            
+            // Update contents
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+                if (content.id === tabId) {
+                    content.classList.add('active');
+                }
+            });
+        }
+        
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => setActiveTab(btn.dataset.tab));
+        });
+        
+        // Initialize tab indicator position
+        const activeBtn = document.querySelector('.tab-btn.active');
+        if (activeBtn) {
+            const btnRect = activeBtn.getBoundingClientRect();
+            const tabsRect = activeBtn.parentElement.getBoundingClientRect();
+            tabIndicator.style.width = `${btnRect.width}px`;
+            tabIndicator.style.left = `${btnRect.left - tabsRect.left}px`;
+        }
+        
+        // Search Functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            // Search in each tab
+            ['lectures', 'notes', 'dpp'].forEach(tab => {
+                const grid = document.getElementById(`${tab}Grid`);
+                const noResults = document.getElementById(`${tab}NoResults`);
+                let visibleItems = 0;
+                
+                if (grid) {
+                    const items = grid.querySelectorAll('.content-card');
+                    items.forEach(item => {
+                        const matches = item.dataset.search.includes(searchTerm);
+                        item.style.display = matches ? 'block' : 'none';
+                        if (matches) visibleItems++;
+                    });
+                    
+                    // Show/hide no results message
+                    noResults.style.display = visibleItems === 0 ? 'block' : 'none';
+                }
+            });
+        });
+    </script>
+    
+</body>
+</html>
+    
