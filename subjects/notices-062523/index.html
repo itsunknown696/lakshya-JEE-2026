@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Physics</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #6e00ff;
+      --secondary: #00f0ff;
+      --dark: #0a0a20;
+      --light: #f0f5ff;
+      --accent: #ff00aa;
+    }
+    
+    body {
+      font-family: 'Kanit', sans-serif;
+      background-color: var(--dark);
+      margin: 0;
+      padding: 0;
+      color: var(--light);
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(110, 0, 255, 0.15) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(0, 240, 255, 0.15) 0%, transparent 20%);
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 24px;
+      padding: 24px 16px 0;
+      position: relative;
+    }
+
+    .back-btn {
+      font-size: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--light);
+      margin-right: 12px;
+      transition: all 0.3s ease;
+      z-index: 2;
+    }
+
+    .back-btn:hover {
+      color: var(--secondary);
+      transform: translateX(-3px);
+    }
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      margin: 0;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .container {
+      padding: 0 16px 40px;
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .card {
+      background: rgba(10, 10, 32, 0.7);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(110, 0, 255, 0.3);
+      backdrop-filter: blur(8px);
+      z-index: 1;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+      z-index: -2;
+      filter: blur(8px);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 12px 40px rgba(110, 0, 255, 0.4);
+      border-color: rgba(110, 0, 255, 0.6);
+    }
+
+    .card:hover::before {
+      opacity: 0.6;
+    }
+
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      z-index: 1;
+    }
+
+    .card-title {
+      font-weight: 600;
+      font-size: 18px;
+      margin-bottom: 8px;
+      background: linear-gradient(90deg, var(--light), #d1d8ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .card-sub {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+      display: flex;
+      gap: 12px;
+    }
+
+    .card-sub span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .arrow {
+      font-size: 24px;
+      color: var(--secondary);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover .arrow {
+      transform: translateX(5px);
+      color: var(--accent);
+    }
+
+    /* Particle background animation */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 50%;
+      filter: blur(2px);
+      animation: float linear infinite;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+      }
+    }
+
+    /* Holographic effect */
+    .holographic-line {
+      position: absolute;
+      height: 1px;
+      width: 100%;
+      background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+      opacity: 0.3;
+      animation: scan 8s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes scan {
+      0% {
+        top: 0%;
+      }
+      100% {
+        top: 100%;
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 20px;
+      }
+      
+      .card {
+        padding: 16px;
+      }
+
+      .card-title {
+        font-size: 16px;
+      }
+
+      .card-sub {
+        font-size: 12px;
+      }
+    }
+
+    /* Special animation for physics theme */
+    .quantum-dots {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .quantum-dot {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background-color: var(--secondary);
+      opacity: 0.3;
+      animation: quantum 15s infinite ease-in-out;
+    }
+
+    @keyframes quantum {
+      0%, 100% {
+        transform: translate(0, 0);
+        opacity: 0.1;
+      }
+      25% {
+        transform: translate(20vw, 30vh);
+        opacity: 0.6;
+      }
+      50% {
+        transform: translate(-15vw, 50vh);
+        opacity: 0.3;
+      }
+      75% {
+        transform: translate(10vw, -20vh);
+        opacity: 0.8;
+      }
+    }
+
+    /* Glitch effect on hover */
+    .card:hover .card-title {
+      animation: glitch 0.5s linear infinite;
+    }
+
+    @keyframes glitch {
+      0% {
+        text-shadow: 2px 0 var(--primary), -2px 0 var(--accent);
+      }
+      25% {
+        text-shadow: -2px 0 var(--primary), 2px 0 var(--accent);
+      }
+      50% {
+        text-shadow: 2px 0 var(--accent), -2px 0 var(--primary);
+      }
+      75% {
+        text-shadow: -2px 0 var(--accent), 2px 0 var(--primary);
+      }
+      100% {
+        text-shadow: 2px 0 var(--primary), -2px 0 var(--accent);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quantum-dots" id="quantumDots"></div>
+  <div class="particles" id="particles"></div>
+  <div class="holographic-line"></div>
+
+  <div class="container">
+    <div class="header">
+      <button class="back-btn" onclick="window.location.href='../'">
+        <i class="bi bi-arrow-left"></i>
+      </button>
+      <h1> Notices</h1>
+    </div>
+    
+            <div class="card" onclick="window.location.href='batch-demo-videos-322987.html'">
+                <div class="card-content">
+                    <div class="card-title">Batch Demo Videos</div>
+                    <div class="card-sub">
+                        <span><i class="bi bi-play-circle"></i> 13 Videos</span>
+                        <span><i class="bi bi-activity"></i> 0 Exercises</span>
+                        <span><i class="bi bi-file-text"></i> 0 Notes</span>
+                    </div>
+                </div>
+                <div class="arrow">&rsaquo;</div>
+            </div>
+            
+
+            <div class="card" onclick="window.location.href='lecture-planner-||-only-pdf-337495.html'">
+                <div class="card-content">
+                    <div class="card-title">Lecture Planner || Only PDF</div>
+                    <div class="card-sub">
+                        <span><i class="bi bi-play-circle"></i> 0 Videos</span>
+                        <span><i class="bi bi-activity"></i> 0 Exercises</span>
+                        <span><i class="bi bi-file-text"></i> 5 Notes</span>
+                    </div>
+                </div>
+                <div class="arrow">&rsaquo;</div>
+            </div>
+            
+
+            <div class="card" onclick="window.location.href='test-planner-||-only-pdf-717635.html'">
+                <div class="card-content">
+                    <div class="card-title">Test Planner || Only PDF</div>
+                    <div class="card-sub">
+                        <span><i class="bi bi-play-circle"></i> 0 Videos</span>
+                        <span><i class="bi bi-activity"></i> 0 Exercises</span>
+                        <span><i class="bi bi-file-text"></i> 1 Notes</span>
+                    </div>
+                </div>
+                <div class="arrow">&rsaquo;</div>
+            </div>
+            
+
+            <div class="card" onclick="window.location.href='class-schedule-||-only-pdf-620920.html'">
+                <div class="card-content">
+                    <div class="card-title">Class Schedule || Only PDF</div>
+                    <div class="card-sub">
+                        <span><i class="bi bi-play-circle"></i> 0 Videos</span>
+                        <span><i class="bi bi-activity"></i> 0 Exercises</span>
+                        <span><i class="bi bi-file-text"></i> 2 Notes</span>
+                    </div>
+                </div>
+                <div class="arrow">&rsaquo;</div>
+            </div>
+            
+
+            <div class="card" onclick="window.location.href='telegram-group-link-||-only-pdf-510245.html'">
+                <div class="card-content">
+                    <div class="card-title">Telegram Group Link || Only PDF</div>
+                    <div class="card-sub">
+                        <span><i class="bi bi-play-circle"></i> 0 Videos</span>
+                        <span><i class="bi bi-activity"></i> 0 Exercises</span>
+                        <span><i class="bi bi-file-text"></i> 1 Notes</span>
+                    </div>
+                </div>
+                <div class="arrow">&rsaquo;</div>
+            </div>
+            
+
+            <div class="card" onclick="window.location.href='test-syllabus-||-only-pdf-454310.html'">
+                <div class="card-content">
+                    <div class="card-title">Test Syllabus || Only PDF</div>
+                    <div class="card-sub">
+                        <span><i class="bi bi-play-circle"></i> 0 Videos</span>
+                        <span><i class="bi bi-activity"></i> 0 Exercises</span>
+                        <span><i class="bi bi-file-text"></i> 3 Notes</span>
+                    </div>
+                </div>
+                <div class="arrow">&rsaquo;</div>
+            </div>
+            
+
+            <div class="card" onclick="window.location.href='test-papers-||-only-pdf-755775.html'">
+                <div class="card-content">
+                    <div class="card-title">Test Papers || Only PDF</div>
+                    <div class="card-sub">
+                        <span><i class="bi bi-play-circle"></i> 0 Videos</span>
+                        <span><i class="bi bi-activity"></i> 0 Exercises</span>
+                        <span><i class="bi bi-file-text"></i> 4 Notes</span>
+                    </div>
+                </div>
+                <div class="arrow">&rsaquo;</div>
+            </div>
+            
+
+            <div class="card" onclick="window.location.href='live-interaction-session-327476.html'">
+                <div class="card-content">
+                    <div class="card-title">Live Interaction Session</div>
+                    <div class="card-sub">
+                        <span><i class="bi bi-play-circle"></i> 1 Videos</span>
+                        <span><i class="bi bi-activity"></i> 0 Exercises</span>
+                        <span><i class="bi bi-file-text"></i> 1 Notes</span>
+                    </div>
+                </div>
+                <div class="arrow">&rsaquo;</div>
+            </div>
+            
+
+            <div class="card" onclick="window.location.href='air-test-result-||-only-pdf-967465.html'">
+                <div class="card-content">
+                    <div class="card-title">AIR Test Result || Only PDF</div>
+                    <div class="card-sub">
+                        <span><i class="bi bi-play-circle"></i> 0 Videos</span>
+                        <span><i class="bi bi-activity"></i> 0 Exercises</span>
+                        <span><i class="bi bi-file-text"></i> 1 Notes</span>
+                    </div>
+                </div>
+                <div class="arrow">&rsaquo;</div>
+            </div>
+            
+
+            <div class="card" onclick="window.location.href='samwaad-with-alakh-sir-445281.html'">
+                <div class="card-content">
+                    <div class="card-title">Samwaad with Alakh Sir</div>
+                    <div class="card-sub">
+                        <span><i class="bi bi-play-circle"></i> 0 Videos</span>
+                        <span><i class="bi bi-activity"></i> 0 Exercises</span>
+                        <span><i class="bi bi-file-text"></i> 0 Notes</span>
+                    </div>
+                </div>
+                <div class="arrow">&rsaquo;</div>
+            </div>
+            
+  </div>
+    
+  <script>
+    // Create floating particles
+    const particlesContainer = document.getElementById('particles');
+    const particleCount = 30;
+    
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      
+      // Random size between 2px and 6px
+      const size = Math.random() * 4 + 2;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      
+      // Random position
+      particle.style.left = `${Math.random() * 100}vw`;
+      particle.style.top = `${Math.random() * 100}vh`;
+      
+      // Random animation duration between 20s and 50s
+      particle.style.animationDuration = `${Math.random() * 30 + 20}s`;
+      
+      // Random delay
+      particle.style.animationDelay = `${Math.random() * 10}s`;
+      
+      // Random opacity
+      particle.style.opacity = Math.random() * 0.5 + 0.1;
+      
+      particlesContainer.appendChild(particle);
+    }
+
+    // Create quantum dots
+    const quantumContainer = document.getElementById('quantumDots');
+    const dotCount = 15;
+    
+    for (let i = 0; i < dotCount; i++) {
+      const dot = document.createElement('div');
+      dot.classList.add('quantum-dot');
+      
+      // Random position
+      dot.style.left = `${Math.random() * 100}vw`;
+      dot.style.top = `${Math.random() * 100}vh`;
+      
+      // Random animation duration between 10s and 20s
+      dot.style.animationDuration = `${Math.random() * 10 + 10}s`;
+      
+      // Random delay
+      dot.style.animationDelay = `${Math.random() * 5}s`;
+      
+      quantumContainer.appendChild(dot);
+    }
+
+    // Add ripple effect to cards
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+      card.addEventListener('click', function(e) {
+        // Create ripple element
+        const ripple = document.createElement('span');
+        ripple.classList.add('ripple-effect');
+        
+        // Position ripple at click location
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+        
+        // Add to card
+        this.appendChild(ripple);
+        
+        // Remove after animation
+        setTimeout(() => {
+          ripple.remove();
+        }, 1000);
+      });
+    });
+
+    // Add style for ripple effect
+    const style = document.createElement('style');
+    style.textContent = `
+      .ripple-effect {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.7);
+        transform: scale(0);
+        animation: ripple 0.6s linear;
+        pointer-events: none;
+        width: 100px;
+        height: 100px;
+        margin-left: -50px;
+        margin-top: -50px;
+        mix-blend-mode: screen;
+      }
+      
+      @keyframes ripple {
+        to {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>

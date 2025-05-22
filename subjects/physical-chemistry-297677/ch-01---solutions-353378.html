@@ -1,0 +1,807 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ch-01 : Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+        :root {
+            --primary: #7c4dff;
+            --primary-light: #9c7aff;
+            --text: #2d3748;
+            --text-light: #718096;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dark-mode {
+            --primary: #9c7aff;
+            --primary-light: #b79aff;
+            --text: #f7fafc;
+            --text-light: #cbd5e0;
+            --bg: #1a202c;
+            --card-bg: #2d3748;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: var(--transition);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            opacity: 0;
+            animation: fadeIn 0.8s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(124, 77, 255, 0.2);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .search-container {
+            position: relative;
+            width: 300px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            border-radius: 50px;
+            border: none;
+            background-color: var(--card-bg);
+            color: var(--text);
+            box-shadow: var(--shadow);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(124, 77, 255, 0.3);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background-color: rgba(124, 77, 255, 0.1);
+            color: var(--primary);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .tab-indicator {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 3px;
+            transition: var(--transition);
+            z-index: 1;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-light);
+            position: relative;
+            border-radius: 8px 8px 0 0;
+            transition: var(--transition);
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+        }
+
+        .tab-btn:hover:not(.active) {
+            color: var(--text);
+            background-color: rgba(124, 77, 255, 0.05);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .content-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(124, 77, 255, 0.1);
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-light);
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .content-card:hover::before {
+            width: 6px;
+            background-color: var(--primary-light);
+        }
+
+        .content-card a {
+            text-decoration: none;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .content-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .content-info {
+            flex-grow: 1;
+        }
+
+        .content-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            transition: var(--transition);
+        }
+
+        .content-card:hover .content-title {
+            color: var(--primary);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-light);
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+            
+            .search-container {
+                width: 100%;
+            }
+            
+            .tabs {
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style></head>
+<body>
+<div class="container">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-atom"></i>
+                <span>Ch-01 : Solutions</span>
+            </div>
+            
+            <div class="controls">
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Search materials..." id="searchInput">
+                </div>
+                
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab-indicator" id="tabIndicator"></div>
+            <button class="tab-btn active" data-tab="lectures">Lectures</button>
+            <button class="tab-btn" data-tab="notes">Notes</button>
+            <button class="tab-btn" data-tab="dpp">DPP</button>
+        </div>
+        
+        <!-- Lectures Tab -->
+        <div id="lectures" class="tab-content active">
+            <h2 style="margin-bottom: 1.5rem; color: var(--primary);">Video Lectures</h2>
+            <div class="content-grid" id="lecturesGrid">
+                <div class="content-card" data-search="solutions 17 : van’t hoff factor || henry’s law">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/522cd1cb-4994-41ec-acf0-eb421646a438/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 17 : Van’t Hoff Factor || Henry’s Law</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 16 : depression in f.p || osmotic pressure || van't hoff factor (part two) || no dpp || extra class ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/a2e19834-3364-45f2-a1dd-980791a4be53/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 16 : Depression in F.P || Osmotic Pressure || Van't Hoff Factor (Part Two) || NO DPP || Extra Class </div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 15 : depression in f.p || osmotic pressure || van't hoff factor ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/74d3e44e-9caa-49f4-8567-b4cb07996006/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 15 : Depression in F.P || Osmotic Pressure || Van't Hoff Factor </div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 14 : oswalt-walker experiment || elevation in b.p || depression in f.p">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/ef1bdc12-761b-4dd9-9915-574ecf4150e0/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 14 : Oswalt-Walker Experiment || Elevation in B.P || Depression in F.P</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 13 : non ideal solution || azeotropes || colligative properties ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/86048d60-c706-44a5-a5b7-127484fe4ac6/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 13 : Non Ideal Solution || Azeotropes || Colligative Properties </div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 12 : ideal solutions || non ideal solutions || distillation || no dpp ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/2ad0030b-90b4-4161-8bf4-330b0662b004/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 12 : Ideal Solutions || Non Ideal Solutions || Distillation || NO DPP </div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 11 : ideal solutions || non ideal solutions || no dpp">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/c541a6f3-4ce1-40ed-b336-59fa814476dc/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 11 : Ideal Solutions || Non Ideal Solutions || NO DPP</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 10 : mixture of non-volatile solute in a volatile solvent || mixture of volatile solute in a volatile solvent both are miscible (part two) ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/e701ac0e-fc3f-408f-b9ce-f5d7a4d588c3/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 10 : Mixture of Non-Volatile Solute in a Volatile Solvent || Mixture of Volatile Solute in a Volatile Solvent both are Miscible (Part Two) </div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 09 : mixture of non-volatile solute in a volatile solvent || mixture of volatile solute in a volatile solvent both are miscible ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/690ddde0-21f4-4c40-b2c2-08ff6f8d7cf6/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 09 : Mixture of Non-Volatile Solute in a Volatile Solvent || Mixture of Volatile Solute in a Volatile Solvent both are Miscible </div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 08 : vapour pressure (part three) || no dpp">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/1a97787c-3082-4f3d-8d64-cd2f2b792285/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 08 : Vapour Pressure (Part Three) || NO DPP</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 07 : vapour pressure (part two)">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/1a691dde-c74b-4a89-a19c-f3f457319284/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 07 : Vapour Pressure (Part Two)</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 06 : vapour pressure ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/01acaef9-49e6-4b19-be5d-614a8d045ab5/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 06 : Vapour Pressure </div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 05 : concentration terms (part five) || no dpp">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/d72d19b1-fd56-4651-876f-652f8c594f67/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 05 : Concentration Terms (Part Five) || NO DPP</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 04 : concentration terms (part four)">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/6e7d47bf-fb58-41d9-9c4f-44485a200c62/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 04 : Concentration Terms (Part Four)</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 03 : concentration terms (part three) ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/a3b2fdeb-31ad-4721-97d6-95dcfc732fc1/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 03 : Concentration Terms (Part Three) </div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 02 : concentration terms (part two) ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/a5b7a3f2-cf09-4fbc-a8d5-c5153b3d20b2/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 02 : Concentration Terms (Part Two) </div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 01 : concentration terms || no dpp ">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/4b7aa274-7277-491b-af41-63346ba726aa/master.mpd" target="_blank">
+                        <i class="fas fa-video"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 01 : Concentration Terms || NO DPP </div>
+                        </div>
+                    </a>
+                </div>    
+            </div>
+            <div class="no-results" id="lecturesNoResults">
+                <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                <p>No matching lectures found</p>
+            </div>
+        </div>
+        
+        <!-- Notes Tab -->
+        <div id="notes" class="tab-content">
+            <h2 style="margin-bottom: 1.5rem; color: var(--primary);">Study Notes</h2>
+            <div class="content-grid" id="notesGrid">
+                <div class="content-card" data-search="solutions 17 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/a0b4d6a7-122a-4db8-a508-a0473f6d56fa.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 17 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 16 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/b4e14082-23bf-48e5-ad40-479bb7a38a26.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 16 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 15 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/e1f865f5-153e-45c7-880c-2281ac9cb4f7.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 15 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 14 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/11abb0d5-b08c-4b00-bba7-c6d3ef8719dd.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 14 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 13 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/c4851d5f-40e0-4465-b94b-b38f0b896a7d.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 13 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 12 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/798de09a-c6f1-495e-9ab9-6354695dc330.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 12 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 11 : class notes || laskhya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/d1c50d4c-b32e-4637-9ec0-6ea8077f8177.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 11 : Class Notes || Laskhya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 10 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/6a773d5f-069e-43e7-8783-3c90e9eb1e38.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 10 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 09 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/f5682327-eda1-441c-87c3-7b84a0bb7b98.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 09 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 08 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/4e57ce93-dee3-40ec-8f0f-5f8e9d0060e1.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 08 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 07 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/b74e0772-1abc-4438-a623-394021c3dae0.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 07 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 06 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/b57cce1c-080f-4a80-b830-91a68c7c03da.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 06 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 05 : class notes || lakshya jee 2026">
+                    <a href="https://d2bps9p1kiy4ka.cloudfront.net/5eb393ee95fab7468a79d189/97e4f897-906e-4944-af9f-35b5844718cb.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 05 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 04 : class notes || laskhya jee 2026">
+                    <a href="https://d2bps9p1kiy4ka.cloudfront.net/5eb393ee95fab7468a79d189/7c8d1d14-affd-43e6-bb2e-8d96e68499c3.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 04 : Class Notes || Laskhya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 03 : class notes || lakshya jee 2026">
+                    <a href="https://d2bps9p1kiy4ka.cloudfront.net/5eb393ee95fab7468a79d189/6bd41683-66cc-43a1-8da5-5359319a9450.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 03 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 02 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/5a8e3c19-137a-4dfd-ab3b-f1fba2c8afde.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 02 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions 01 : class notes || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/a2b4f206-ab76-4962-bbb4-6f86134afbeb.pdf" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions 01 : Class Notes || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="no-results" id="notesNoResults">
+                <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                <p>No matching notes found</p>
+            </div>
+        </div>
+        
+        <!-- DPP Tab -->
+        <div id="dpp" class="tab-content">
+            <h2 style="margin-bottom: 1.5rem; color: var(--primary);">Daily Practice Problems</h2>
+            <div class="content-grid" id="dppGrid">
+                <div class="content-card" data-search="solutions : dpp 11 (of lec 17) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/def92496-fca1-44ed-ab0d-f5628354454d.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions : DPP 11 (of lec 17) || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions : dpp 10 (of lec 15) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/1dc8dad9-4ad7-46fd-9720-9fb514b34e58.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions : DPP 10 (of lec 15) || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions : dpp 09 (of lec 14) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/a67a569b-251c-40bb-9a54-10b24209cdca.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions : DPP 09 (of lec 14) || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions : dpp 08 (of lec 13) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/ecbcf66c-a404-435e-8431-2a640095519b.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions : DPP 08 (of lec 13) || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions : dpp 07 (of lec 10) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/9d7177d5-5b8a-42eb-93a5-14ae35215432.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions : DPP 07 (of lec 10) || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions : dpp 06 (of lec 09) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/f8e4894e-1219-4606-b8b7-5c804e2c5d3d.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions : DPP 06 (of lec 09) || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions : dpp 05 (of lec 07) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/3cb143bc-787c-4651-9a7f-00205d4574c0.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions : DPP 05 (of lec 07) || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions : dpp 04 (of lec 06) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/f1e4145f-3f69-4e5e-a7de-11b0f708f8e1.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions : DPP 04 (of lec 06) || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions : dpp 03 (of lec 04) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/21a3fe17-79b9-4e4e-ace3-0067737684aa.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions : DPP 03 (of lec 04) || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions : dpp 02 (of lec 03) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/05ddfad5-f4c7-4973-a80a-0e28dfe8f10b.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions : DPP 02 (of lec 03) || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>
+<div class="content-card" data-search="solutions : dpp 01 (of lec 02) || lakshya jee 2026">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/3734eb7a-e634-4383-89c1-6eb422914a6f.pdf" target="_blank">
+                        <i class="fas fa-pen-fancy"></i>
+                        <div class="content-info">
+                            <div class="content-title">Solutions : DPP 01 (of lec 02) || Lakshya JEE 2026</div>
+                        </div>
+                    </a>
+                </div>           
+            </div>
+            <div class="no-results" id="dppNoResults">
+                <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                <p>No matching DPPs found</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const icon = themeToggle.querySelector('i');
+        
+        // Check for saved preference or use system preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.body.classList.add('dark-mode');
+            icon.classList.replace('fa-moon', 'fa-sun');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // Tab Switching
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const tabIndicator = document.getElementById('tabIndicator');
+        
+        function setActiveTab(tabId) {
+            // Update buttons
+            tabButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.tab === tabId) {
+                    btn.classList.add('active');
+                    // Move indicator
+                    const btnRect = btn.getBoundingClientRect();
+                    const tabsRect = btn.parentElement.getBoundingClientRect();
+                    tabIndicator.style.width = `${btnRect.width}px`;
+                    tabIndicator.style.left = `${btnRect.left - tabsRect.left}px`;
+                }
+            });
+            
+            // Update contents
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+                if (content.id === tabId) {
+                    content.classList.add('active');
+                }
+            });
+        }
+        
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => setActiveTab(btn.dataset.tab));
+        });
+        
+        // Initialize tab indicator position
+        const activeBtn = document.querySelector('.tab-btn.active');
+        if (activeBtn) {
+            const btnRect = activeBtn.getBoundingClientRect();
+            const tabsRect = activeBtn.parentElement.getBoundingClientRect();
+            tabIndicator.style.width = `${btnRect.width}px`;
+            tabIndicator.style.left = `${btnRect.left - tabsRect.left}px`;
+        }
+        
+        // Search Functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            // Search in each tab
+            ['lectures', 'notes', 'dpp'].forEach(tab => {
+                const grid = document.getElementById(`${tab}Grid`);
+                const noResults = document.getElementById(`${tab}NoResults`);
+                let visibleItems = 0;
+                
+                if (grid) {
+                    const items = grid.querySelectorAll('.content-card');
+                    items.forEach(item => {
+                        const matches = item.dataset.search.includes(searchTerm);
+                        item.style.display = matches ? 'block' : 'none';
+                        if (matches) visibleItems++;
+                    });
+                    
+                    // Show/hide no results message
+                    noResults.style.display = visibleItems === 0 ? 'block' : 'none';
+                }
+            });
+        });
+    </script>
+    
+</body>
+</html>
+    
