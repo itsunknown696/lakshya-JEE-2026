@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Subjects - Lakshya JEE 2026</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
@@ -30,7 +30,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 2rem;
+      padding: 1rem;
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
@@ -49,7 +49,7 @@
       max-width: 600px;
       background: rgba(10, 25, 47, 0.85);
       border-radius: 20px;
-      padding: 2.5rem;
+      padding: 1.5rem;
       box-shadow: 0 10px 30px var(--navy-shadow);
       backdrop-filter: blur(5px);
       border: 1px solid rgba(100, 255, 218, 0.1);
@@ -64,21 +64,22 @@
     header {
       display: flex;
       align-items: center;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     .back-btn {
       background: transparent;
       border: 1px solid var(--light-blue);
       color: var(--light-blue);
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       display: grid;
       place-items: center;
-      margin-right: 1rem;
+      margin-right: 0.8rem;
       cursor: pointer;
       transition: all 0.25s ease;
+      flex-shrink: 0;
     }
 
     .back-btn:hover {
@@ -93,32 +94,40 @@
 
     .header-content {
       flex: 1;
+      min-width: 0; /* Prevent flex item from overflowing */
     }
 
     h1 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       color: var(--light-blue);
       margin-bottom: 0.2rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .subtitle {
       color: var(--slate);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .theme-toggle {
       background: transparent;
       border: 1px solid var(--light-blue);
       color: var(--light-blue);
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       display: grid;
       place-items: center;
       cursor: pointer;
       transition: all 0.25s ease;
-      margin-left: 1rem;
+      margin-left: 0.8rem;
+      flex-shrink: 0;
     }
 
     .theme-toggle:hover {
@@ -133,14 +142,14 @@
 
     .tabs {
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       position: relative;
     }
 
     .tabs::after {
       content: '';
       position: absolute;
-      bottom: -10px;
+      bottom: -8px;
       left: 25%;
       width: 50%;
       height: 2px;
@@ -149,22 +158,22 @@
 
     .tabs span {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: var(--light-blue);
       letter-spacing: 1px;
     }
 
     .subject-list {
       display: grid;
-      gap: 1rem;
-      margin-bottom: 2rem;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
     }
 
     .subject-card {
       display: flex;
       align-items: center;
       background: rgba(100, 255, 218, 0.03);
-      padding: 1.2rem;
+      padding: 1rem;
       border-radius: 10px;
       border: 1px solid rgba(100, 255, 218, 0.1);
       cursor: pointer;
@@ -187,14 +196,15 @@
     }
 
     .subject-icon {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       background: rgba(100, 255, 218, 0.1);
       border-radius: 8px;
       display: grid;
       place-items: center;
-      margin-right: 1rem;
+      margin-right: 0.8rem;
       color: var(--light-blue);
+      flex-shrink: 0;
     }
 
     body.light-theme .subject-icon {
@@ -204,11 +214,17 @@
     .subject-name {
       flex: 1;
       font-weight: 500;
+      font-size: 0.95rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .subject-arrow {
       color: var(--slate);
       transition: all 0.25s ease;
+      flex-shrink: 0;
+      margin-left: 0.5rem;
     }
 
     .subject-card:hover .subject-arrow {
@@ -219,8 +235,8 @@
     footer {
       text-align: center;
       color: var(--slate);
-      font-size: 0.9rem;
-      padding-top: 2rem;
+      font-size: 0.85rem;
+      padding-top: 1.5rem;
       border-top: 1px solid rgba(100, 255, 218, 0.1);
     }
 
@@ -231,22 +247,24 @@
     .footer-buttons {
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
+      gap: 1rem;
       margin-top: 1rem;
+      flex-wrap: wrap;
     }
 
     .footer-btn {
       background: transparent;
       border: 1px solid var(--slate);
       color: var(--slate);
-      padding: 0.5rem 1rem;
+      padding: 0.4rem 0.8rem;
       border-radius: 20px;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.4rem;
       cursor: pointer;
       transition: all 0.25s ease;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
+      white-space: nowrap;
     }
 
     .footer-btn:hover {
@@ -254,13 +272,55 @@
       border-color: var(--light-blue);
     }
 
-    @media (max-width: 600px) {
+    /* Mobile-specific adjustments */
+    @media (max-width: 480px) {
       .container {
-        padding: 1.5rem;
+        padding: 1.2rem;
       }
       
       h1 {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
+      }
+      
+      .tabs span {
+        font-size: 1rem;
+      }
+      
+      .subject-name {
+        font-size: 0.9rem;
+      }
+      
+      .subject-icon {
+        width: 32px;
+        height: 32px;
+        margin-right: 0.6rem;
+      }
+      
+      .footer-btn {
+        padding: 0.3rem 0.7rem;
+        font-size: 0.8rem;
+      }
+    }
+
+    @media (max-width: 350px) {
+      .container {
+        padding: 1rem;
+      }
+      
+      h1 {
+        font-size: 1.2rem;
+      }
+      
+      .subtitle {
+        font-size: 0.8rem;
+      }
+      
+      .subject-card {
+        padding: 0.8rem;
+      }
+      
+      .footer-buttons {
+        gap: 0.5rem;
       }
     }
   </style>
@@ -370,6 +430,12 @@
     window.addEventListener('pageshow', () => {
       document.body.style.opacity = '1';
     });
+    
+    // Mobile detection and adjustments
+    if (/Mobi|Android/i.test(navigator.userAgent)) {
+      // Additional mobile-specific adjustments if needed
+      document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+    }
   </script>
 </body>
 </html>
