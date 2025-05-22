@@ -2,31 +2,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PYQ Practice Sheet || (Only PDF)</title>
+    <title>Ch - 02 : Electric Potential And Dipole | Study Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
+    <style>
         :root {
-            --primary: #7c4dff;
-            --primary-light: #9c7aff;
-            --text: #2d3748;
-            --text-light: #718096;
-            --bg: #f8fafc;
+            --primary: #2e7d32; /* Green 800 */
+            --primary-light: #4caf50; /* Green 500 */
+            --primary-lighter: #81c784; /* Green 300 */
+            --primary-dark: #1b5e20; /* Green 900 */
+            --text: #263238; /* Blue Grey 900 */
+            --text-light: #607d8b; /* Blue Grey 500 */
+            --bg: #f5f5f5; /* Grey 100 */
             --card-bg: #ffffff;
             --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .dark-mode {
-            --primary: #9c7aff;
-            --primary-light: #b79aff;
-            --text: #f7fafc;
-            --text-light: #cbd5e0;
-            --bg: #1a202c;
-            --card-bg: #2d3748;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            --primary: #66bb6a; /* Green 400 */
+            --primary-light: #81c784; /* Green 300 */
+            --primary-lighter: #a5d6a7; /* Green 200 */
+            --primary-dark: #4caf50; /* Green 500 */
+            --text: #eceff1; /* Blue Grey 50 */
+            --text-light: #b0bec5; /* Blue Grey 200 */
+            --bg: #121212; /* Dark background */
+            --card-bg: #1e1e1e; /* Dark card */
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
 
         * {
@@ -63,7 +67,7 @@
             align-items: center;
             margin-bottom: 2rem;
             padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(124, 77, 255, 0.2);
+            border-bottom: 1px solid rgba(46, 125, 50, 0.2); /* Green with alpha */
         }
 
         .logo {
@@ -111,7 +115,7 @@
 
         .search-input:focus {
             outline: none;
-            box-shadow: 0 0 0 3px rgba(124, 77, 255, 0.3);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3); /* Green light with alpha */
         }
 
         .search-icon {
@@ -138,7 +142,7 @@
         }
 
         .theme-toggle:hover {
-            background-color: rgba(124, 77, 255, 0.1);
+            background-color: rgba(76, 175, 80, 0.1); /* Green light with alpha */
             color: var(--primary);
         }
 
@@ -178,7 +182,7 @@
 
         .tab-btn:hover:not(.active) {
             color: var(--text);
-            background-color: rgba(124, 77, 255, 0.05);
+            background-color: rgba(76, 175, 80, 0.05); /* Green light with alpha */
         }
 
         .tab-content {
@@ -205,12 +209,11 @@
         .content-card {
             background-color: var(--card-bg);
             border-radius: 12px;
-            padding: 1.5rem;
+            overflow: hidden;
             box-shadow: var(--shadow);
             transition: var(--transition);
             position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(124, 77, 255, 0.1);
+            border: 1px solid rgba(76, 175, 80, 0.1); /* Green light with alpha */
         }
 
         .content-card:hover {
@@ -235,18 +238,27 @@
             background-color: var(--primary-light);
         }
 
+        .content-thumbnail {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .content-body {
+            padding: 1.5rem;
+        }
+
         .content-card a {
             text-decoration: none;
             color: var(--text);
             display: flex;
-            align-items: center;
-            gap: 1rem;
+            flex-direction: column;
         }
 
         .content-icon {
             font-size: 1.5rem;
             color: var(--primary);
-            flex-shrink: 0;
+            margin-bottom: 1rem;
         }
 
         .content-info {
@@ -255,8 +267,15 @@
 
         .content-title {
             font-weight: 600;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.5rem;
             transition: var(--transition);
+        }
+
+        .content-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-light);
+            font-size: 0.9rem;
         }
 
         .content-card:hover .content-title {
@@ -268,6 +287,184 @@
             padding: 2rem;
             color: var(--text-light);
             display: none;
+            grid-column: 1 / -1;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background-color: rgba(76, 175, 80, 0.8); /* Green light with alpha */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .content-card:hover .play-button {
+            opacity: 1;
+        }
+
+        .play-button i {
+            color: white;
+            font-size: 1.5rem;
+            margin-left: 5px;
+        }
+
+        /* Footer Styles */
+        .footer {
+            margin-top: 3rem;
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(76, 175, 80, 0.2); /* Green light with alpha */
+        }
+
+        .footer-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .footer-btn {
+            padding: 0.5rem 1.2rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .footer-btn:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .footer-btn i {
+            font-size: 1rem;
+        }
+
+        .copyright {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .modal-close:hover {
+            color: var(--primary);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        .modal-content {
+            margin-bottom: 1.5rem;
+            color: var(--text);
+            text-align: center;
+        }
+
+        .modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .modal-btn {
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .modal-btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .modal-btn-primary:hover {
+            background-color: var(--primary-light);
+        }
+
+        .modal-btn-secondary {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .modal-btn-secondary:hover {
+            background-color: rgba(76, 175, 80, 0.1); /* Green light with alpha */
         }
 
         @media (max-width: 768px) {
@@ -289,14 +486,41 @@
             .content-grid {
                 grid-template-columns: 1fr;
             }
+
+            .footer-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .modal-buttons {
+                flex-direction: column;
+            }
         }
-    </style></head>
+    </style>
+</head>
 <body>
-<div class="container">
+    <!-- Modal Popup -->
+    <div class="modal-overlay" id="channelModal">
+        <div class="modal">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <h3 class="modal-title">Important Notice</h3>
+            <p class="modal-content">You have to join these channels to proceed:</p>
+            <div class="modal-buttons">
+                <a href="https://t.me/Team_Delta_Official" target="_blank" class="modal-btn modal-btn-primary">
+                    <i class="fab fa-telegram"></i> Join Main Channel
+                </a>
+                <a href="https://t.me/+zp0kcItlrAExNjc9" target="_blank" class="modal-btn modal-btn-secondary">
+                    <i class="fab fa-telegram"></i> Join Backup Channel
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
         <div class="header">
             <div class="logo">
                 <i class="fas fa-atom"></i>
-                <span>PYQ Practice Sheet || (Only PDF)</span>
+                <span>Ch - 02 : Electric Potential And Dipole</span>
             </div>
             
             <div class="controls">
@@ -322,7 +546,7 @@
         <div id="lectures" class="tab-content active">
             <h2 style="margin-bottom: 1.5rem; color: var(--primary);">Video Lectures</h2>
             <div class="content-grid" id="lecturesGrid">
-                    
+                        
             </div>
             <div class="no-results" id="lecturesNoResults">
                 <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem;"></i>
@@ -335,6 +559,7 @@
             <h2 style="margin-bottom: 1.5rem; color: var(--primary);">Study Notes</h2>
             <div class="content-grid" id="notesGrid">
                 
+                
             </div>
             <div class="no-results" id="notesNoResults">
                 <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem;"></i>
@@ -346,336 +571,560 @@
         <div id="dpp" class="tab-content">
             <h2 style="margin-bottom: 1.5rem; color: var(--primary);">Daily Practice Problems</h2>
             <div class="content-grid" id="dppGrid">
+                
                 <div class="content-card" data-search="three dimensional geometry : pyq practice sheet">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/644a26d8-572e-49a3-b8d9-7409e56d2f9f.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Three Dimensional Geometry : PYQ Practice Sheet</div>
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/644a26d8-572e-49a3-b8d9-7409e56d2f9f.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Three Dimensional Geometry : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="vector algebra : pyq practice sheet">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/914a51f2-8a4b-473a-acb5-82c97853594a.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Vector Algebra : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="vector algebra : pyq practice sheet">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/914a51f2-8a4b-473a-acb5-82c97853594a.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Vector Algebra : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="statistics : pyq practice sheet">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/a11931a6-3204-44e8-a919-31fbba772442.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Statistics : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="statistics : pyq practice sheet">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/a11931a6-3204-44e8-a919-31fbba772442.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Statistics : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="probability : pyq practice sheet">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/5ba2b5b6-a5a1-4174-9513-51d9b81789d8.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Probability : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="probability : pyq practice sheet">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/5ba2b5b6-a5a1-4174-9513-51d9b81789d8.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Probability : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="permutations and combinations : pyq practice sheet">
-                    <a href="https://d2bps9p1kiy4ka.cloudfront.net/5eb393ee95fab7468a79d189/6afc740d-788a-4360-8ff0-ff059c754387.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Permutations and Combinations : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="permutations and combinations : pyq practice sheet">
+                    <a href="https://d2bps9p1kiy4ka.cloudfront.net/5eb393ee95fab7468a79d189/6afc740d-788a-4360-8ff0-ff059c754387.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Permutations and Combinations : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="complex numbers : pyq practice sheet">
-                    <a href="https://d2bps9p1kiy4ka.cloudfront.net/5eb393ee95fab7468a79d189/87fa0937-0e62-485f-8317-c767fab7bf00.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Complex Numbers : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="complex numbers : pyq practice sheet">
+                    <a href="https://d2bps9p1kiy4ka.cloudfront.net/5eb393ee95fab7468a79d189/87fa0937-0e62-485f-8317-c767fab7bf00.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Complex Numbers : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="hyperbola : pyq practice sheet">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/59e76449-5b1b-4213-8b68-e58ac7e73d75.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Hyperbola : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="hyperbola : pyq practice sheet">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/59e76449-5b1b-4213-8b68-e58ac7e73d75.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Hyperbola : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="ellipse : pyq practice sheet">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/399bd3ed-f27e-4e41-b487-4e0782af6d32.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Ellipse : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="ellipse : pyq practice sheet">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/399bd3ed-f27e-4e41-b487-4e0782af6d32.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Ellipse : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="differential equations :  pyq practice sheet">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/267b6163-be81-4d6c-b8d7-cdeb308e3b04.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Differential Equations :  PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="differential equations :  pyq practice sheet">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/267b6163-be81-4d6c-b8d7-cdeb308e3b04.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Differential Equations :  PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="parabola : pyq practice sheet">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/e02d8ebf-a4e4-4ff4-8ff6-e06843a19614.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Parabola : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="parabola : pyq practice sheet">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/e02d8ebf-a4e4-4ff4-8ff6-e06843a19614.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Parabola : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="application of integrals : pyq practice sheet">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/925fcf29-ba2b-45ea-a536-17f650efbb96.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Application of Integrals : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="application of integrals : pyq practice sheet">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/925fcf29-ba2b-45ea-a536-17f650efbb96.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Application of Integrals : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="circle : pyq practice sheet">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/75ddc839-caba-498c-a3dd-608d2cc7fd9d.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Circle : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="circle : pyq practice sheet">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/75ddc839-caba-498c-a3dd-608d2cc7fd9d.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Circle : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="definite integration : pyq practice sheet">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/bdbf984d-be99-4ab7-8c10-f08072ea1116.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Definite Integration : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="definite integration : pyq practice sheet">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/bdbf984d-be99-4ab7-8c10-f08072ea1116.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Definite Integration : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="indefinite integration : pyq practice sheet">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/0d98300a-05c0-4223-b171-615472f48f90.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Indefinite Integration : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="indefinite integration : pyq practice sheet">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/0d98300a-05c0-4223-b171-615472f48f90.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Indefinite Integration : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="straight lines : pyq practice sheet">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/4c5c6515-c4b1-4241-91c7-24efdc02f6a1.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Straight Lines : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="straight lines : pyq practice sheet">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/4c5c6515-c4b1-4241-91c7-24efdc02f6a1.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Straight Lines : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="matrices : pyq practice sheet">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/9ba0e600-98cf-463a-9f75-8b0bd2564f66.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Matrices : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="matrices : pyq practice sheet">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/9ba0e600-98cf-463a-9f75-8b0bd2564f66.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Matrices : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="application of derivatives : pyq practice sheet">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/3c5de571-ce71-4fdd-87c6-b5c2c64b06e5.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Application of Derivatives : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="application of derivatives : pyq practice sheet">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/3c5de571-ce71-4fdd-87c6-b5c2c64b06e5.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Application of Derivatives : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="determinants : pyq practice sheet">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/728540ee-6041-4999-acfc-dcb34bff8a42.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Determinants : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="determinants : pyq practice sheet">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/728540ee-6041-4999-acfc-dcb34bff8a42.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Determinants : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="trigonometric ratios and identities : pyq practice sheet">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/149895ec-dc24-41a9-bcc0-7a5db2b7c3c3.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Trigonometric Ratios and Identities : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="trigonometric ratios and identities : pyq practice sheet">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/149895ec-dc24-41a9-bcc0-7a5db2b7c3c3.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Trigonometric Ratios and Identities : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="method of differentiation : pyq practice sheet">
-                    <a href="https://d2bps9p1kiy4ka.cloudfront.net/5eb393ee95fab7468a79d189/de11f629-a073-485e-94ec-c65e6e513dc6.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Method of Differentiation : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="method of differentiation : pyq practice sheet">
+                    <a href="https://d2bps9p1kiy4ka.cloudfront.net/5eb393ee95fab7468a79d189/de11f629-a073-485e-94ec-c65e6e513dc6.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Method of Differentiation : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="continuity : pyq practice sheet">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/9b1eb77f-5220-4f6e-b52f-467eb77530c9.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Continuity : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="continuity : pyq practice sheet">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/9b1eb77f-5220-4f6e-b52f-467eb77530c9.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Continuity : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="limits of functions : pyq practice sheet">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/27ec8210-05bb-4e78-8fa6-af6cb8b81253.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Limits of Functions : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="limits of functions : pyq practice sheet">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/27ec8210-05bb-4e78-8fa6-af6cb8b81253.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Limits of Functions : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="binomial theorem : pyq practice sheet">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/cbc7e0dc-b3ee-4b61-a7fa-ee5cc1a74dee.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Binomial Theorem : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="binomial theorem : pyq practice sheet">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/cbc7e0dc-b3ee-4b61-a7fa-ee5cc1a74dee.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Binomial Theorem : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="inverse trigonometric functions : pyq practice sheet">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/8b9662b7-ab0d-4666-98c5-67241be16568.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Inverse Trigonometric Functions : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="inverse trigonometric functions : pyq practice sheet">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/8b9662b7-ab0d-4666-98c5-67241be16568.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Inverse Trigonometric Functions : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="basic mathematics and logarithm : pyq practice sheet">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/04395740-c5fe-4313-8515-fe4eb97bc3dc.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Basic Mathematics and Logarithm : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="basic mathematics and logarithm : pyq practice sheet">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/04395740-c5fe-4313-8515-fe4eb97bc3dc.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Basic Mathematics and Logarithm : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="quadratic equations : pyq practice sheet">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/027e09f4-cac8-4066-bcf6-5ba7db4576b3.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Quadratic Equations : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="quadratic equations : pyq practice sheet">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/027e09f4-cac8-4066-bcf6-5ba7db4576b3.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Quadratic Equations : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="sequence and series : pyq practice sheet">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/01394ffc-ab52-4396-9d58-4f840cbadf89.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Sequence and Series : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="sequence and series : pyq practice sheet">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/01394ffc-ab52-4396-9d58-4f840cbadf89.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Sequence and Series : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="set theory and relations : pyq practice sheet">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/b13f396b-403c-424e-9b95-ef2903dd6916.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Set Theory and Relations : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="set theory and relations : pyq practice sheet">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/b13f396b-403c-424e-9b95-ef2903dd6916.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Set Theory and Relations : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
-<div class="content-card" data-search="functions : pyq practice sheet">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/e45526d9-12f3-4bf6-a225-af178ad9bf37.pdf" target="_blank">
-                        <i class="fas fa-pen-fancy"></i>
-                        <div class="content-info">
-                            <div class="content-title">Functions : PYQ Practice Sheet</div>
+                
+
+                <div class="content-card" data-search="functions : pyq practice sheet">
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/e45526d9-12f3-4bf6-a225-af178ad9bf37.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-pen-fancy content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Functions : PYQ Practice Sheet</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
-                </div>           
+                </div>
+                
             </div>
             <div class="no-results" id="dppNoResults">
                 <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem;"></i>
                 <p>No matching DPPs found</p>
             </div>
         </div>
+
+        <!-- Footer Section -->
+        <div class="footer">
+            <div class="footer-buttons">
+                <a href="http://www.aboutnomis.carrd.co" target="_blank" class="footer-btn">
+                    <i class="fas fa-user"></i> Owner - Nomis
+                </a>
+                <a href="http://www.aboutnomis.carrd.co" target="_blank" class="footer-btn">
+                    <i class="fas fa-globe"></i> Web
+                </a>
+                <a href="https://t.me/team_delta_official" target="_blank" class="footer-btn">
+                    <i class="fab fa-telegram"></i> Team Delta Official
+                </a>
+            </div>
+            <p class="copyright">© 2025 Study Portal. All rights reserved.</p>
+        </div>
     </div>
     
-    <script>
-        // Theme Toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const icon = themeToggle.querySelector('i');
-        
-        // Check for saved preference or use system preference
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.body.classList.add('dark-mode');
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const icon = themeToggle.querySelector('i');
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.body.classList.add('dark-mode');
+        icon.classList.replace('fa-moon', 'fa-sun');
+    }
+
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        if (document.body.classList.contains('dark-mode')) {
             icon.classList.replace('fa-moon', 'fa-sun');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            icon.classList.replace('fa-sun', 'fa-moon');
+            localStorage.setItem('theme', 'light');
         }
-        
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            if (document.body.classList.contains('dark-mode')) {
-                icon.classList.replace('fa-moon', 'fa-sun');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                icon.classList.replace('fa-sun', 'fa-moon');
-                localStorage.setItem('theme', 'light');
+    });
+
+    // Tab Switching
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    const tabIndicator = document.getElementById('tabIndicator');
+
+    function updateTabIndicator(activeBtn) {
+        const btnRect = activeBtn.getBoundingClientRect();
+        const tabsRect = activeBtn.parentElement.getBoundingClientRect();
+        tabIndicator.style.width = `${btnRect.width}px`;
+        tabIndicator.style.left = `${btnRect.left - tabsRect.left}px`;
+    }
+
+    function setActiveTab(tabId) {
+        tabButtons.forEach(btn => {
+            const isActive = btn.dataset.tab === tabId;
+            btn.classList.toggle('active', isActive);
+            if (isActive) updateTabIndicator(btn);
+        });
+
+        tabContents.forEach(content => {
+            content.classList.toggle('active', content.id === tabId);
+        });
+    }
+
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => setActiveTab(btn.dataset.tab));
+    });
+
+    // Initialize tab indicator
+    const initialActive = document.querySelector('.tab-btn.active');
+    if (initialActive) updateTabIndicator(initialActive);
+
+    // Search Functionality
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', function () {
+        const searchTerm = this.value.toLowerCase();
+
+        ['lectures', 'notes', 'dpp'].forEach(tab => {
+            const grid = document.getElementById(`${tab}Grid`);
+            const noResults = document.getElementById(`${tab}NoResults`);
+            let visibleItems = 0;
+
+            if (grid) {
+                const items = grid.querySelectorAll('.content-card');
+                items.forEach(item => {
+                    const matches = item.dataset.search.includes(searchTerm);
+                    item.style.display = matches ? 'block' : 'none';
+                    if (matches) visibleItems++;
+                });
+
+                noResults.style.display = visibleItems === 0 ? 'block' : 'none';
             }
         });
-        
-        // Tab Switching
-        const tabButtons = document.querySelectorAll('.tab-btn');
-        const tabContents = document.querySelectorAll('.tab-content');
-        const tabIndicator = document.getElementById('tabIndicator');
-        
-        function setActiveTab(tabId) {
-            // Update buttons
-            tabButtons.forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.dataset.tab === tabId) {
-                    btn.classList.add('active');
-                    // Move indicator
-                    const btnRect = btn.getBoundingClientRect();
-                    const tabsRect = btn.parentElement.getBoundingClientRect();
-                    tabIndicator.style.width = `${btnRect.width}px`;
-                    tabIndicator.style.left = `${btnRect.left - tabsRect.left}px`;
-                }
-            });
-            
-            // Update contents
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-                if (content.id === tabId) {
-                    content.classList.add('active');
-                }
-            });
+    });
+
+    // Modal Functionality
+    const channelModal = document.getElementById('channelModal');
+    const modalClose = document.getElementById('modalClose');
+
+    setTimeout(() => {
+        channelModal.classList.add('active');
+    }, 1000);
+
+    modalClose.addEventListener('click', () => {
+        channelModal.classList.remove('active');
+    });
+
+    channelModal.addEventListener('click', (e) => {
+        if (e.target === channelModal) {
+            channelModal.classList.remove('active');
         }
-        
-        tabButtons.forEach(btn => {
-            btn.addEventListener('click', () => setActiveTab(btn.dataset.tab));
-        });
-        
-        // Initialize tab indicator position
-        const activeBtn = document.querySelector('.tab-btn.active');
-        if (activeBtn) {
-            const btnRect = activeBtn.getBoundingClientRect();
-            const tabsRect = activeBtn.parentElement.getBoundingClientRect();
-            tabIndicator.style.width = `${btnRect.width}px`;
-            tabIndicator.style.left = `${btnRect.left - tabsRect.left}px`;
-        }
-        
-        // Search Functionality
-        const searchInput = document.getElementById('searchInput');
-        searchInput.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            
-            // Search in each tab
-            ['lectures', 'notes', 'dpp'].forEach(tab => {
-                const grid = document.getElementById(`${tab}Grid`);
-                const noResults = document.getElementById(`${tab}NoResults`);
-                let visibleItems = 0;
-                
-                if (grid) {
-                    const items = grid.querySelectorAll('.content-card');
-                    items.forEach(item => {
-                        const matches = item.dataset.search.includes(searchTerm);
-                        item.style.display = matches ? 'block' : 'none';
-                        if (matches) visibleItems++;
-                    });
-                    
-                    // Show/hide no results message
-                    noResults.style.display = visibleItems === 0 ? 'block' : 'none';
-                }
-            });
-        });
-    </script>
-    
+    });
+});
+</script>
 </body>
 </html>
-    

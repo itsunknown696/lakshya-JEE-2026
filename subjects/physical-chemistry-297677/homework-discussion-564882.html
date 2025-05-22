@@ -2,31 +2,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homework Discussion</title>
+    <title>Ch - 02 : Electric Potential And Dipole | Study Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
+    <style>
         :root {
-            --primary: #7c4dff;
-            --primary-light: #9c7aff;
-            --text: #2d3748;
-            --text-light: #718096;
-            --bg: #f8fafc;
+            --primary: #2e7d32; /* Green 800 */
+            --primary-light: #4caf50; /* Green 500 */
+            --primary-lighter: #81c784; /* Green 300 */
+            --primary-dark: #1b5e20; /* Green 900 */
+            --text: #263238; /* Blue Grey 900 */
+            --text-light: #607d8b; /* Blue Grey 500 */
+            --bg: #f5f5f5; /* Grey 100 */
             --card-bg: #ffffff;
             --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .dark-mode {
-            --primary: #9c7aff;
-            --primary-light: #b79aff;
-            --text: #f7fafc;
-            --text-light: #cbd5e0;
-            --bg: #1a202c;
-            --card-bg: #2d3748;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            --primary: #66bb6a; /* Green 400 */
+            --primary-light: #81c784; /* Green 300 */
+            --primary-lighter: #a5d6a7; /* Green 200 */
+            --primary-dark: #4caf50; /* Green 500 */
+            --text: #eceff1; /* Blue Grey 50 */
+            --text-light: #b0bec5; /* Blue Grey 200 */
+            --bg: #121212; /* Dark background */
+            --card-bg: #1e1e1e; /* Dark card */
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
 
         * {
@@ -63,7 +67,7 @@
             align-items: center;
             margin-bottom: 2rem;
             padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(124, 77, 255, 0.2);
+            border-bottom: 1px solid rgba(46, 125, 50, 0.2); /* Green with alpha */
         }
 
         .logo {
@@ -111,7 +115,7 @@
 
         .search-input:focus {
             outline: none;
-            box-shadow: 0 0 0 3px rgba(124, 77, 255, 0.3);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3); /* Green light with alpha */
         }
 
         .search-icon {
@@ -138,7 +142,7 @@
         }
 
         .theme-toggle:hover {
-            background-color: rgba(124, 77, 255, 0.1);
+            background-color: rgba(76, 175, 80, 0.1); /* Green light with alpha */
             color: var(--primary);
         }
 
@@ -178,7 +182,7 @@
 
         .tab-btn:hover:not(.active) {
             color: var(--text);
-            background-color: rgba(124, 77, 255, 0.05);
+            background-color: rgba(76, 175, 80, 0.05); /* Green light with alpha */
         }
 
         .tab-content {
@@ -205,12 +209,11 @@
         .content-card {
             background-color: var(--card-bg);
             border-radius: 12px;
-            padding: 1.5rem;
+            overflow: hidden;
             box-shadow: var(--shadow);
             transition: var(--transition);
             position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(124, 77, 255, 0.1);
+            border: 1px solid rgba(76, 175, 80, 0.1); /* Green light with alpha */
         }
 
         .content-card:hover {
@@ -235,18 +238,27 @@
             background-color: var(--primary-light);
         }
 
+        .content-thumbnail {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .content-body {
+            padding: 1.5rem;
+        }
+
         .content-card a {
             text-decoration: none;
             color: var(--text);
             display: flex;
-            align-items: center;
-            gap: 1rem;
+            flex-direction: column;
         }
 
         .content-icon {
             font-size: 1.5rem;
             color: var(--primary);
-            flex-shrink: 0;
+            margin-bottom: 1rem;
         }
 
         .content-info {
@@ -255,8 +267,15 @@
 
         .content-title {
             font-weight: 600;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.5rem;
             transition: var(--transition);
+        }
+
+        .content-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-light);
+            font-size: 0.9rem;
         }
 
         .content-card:hover .content-title {
@@ -268,6 +287,184 @@
             padding: 2rem;
             color: var(--text-light);
             display: none;
+            grid-column: 1 / -1;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background-color: rgba(76, 175, 80, 0.8); /* Green light with alpha */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .content-card:hover .play-button {
+            opacity: 1;
+        }
+
+        .play-button i {
+            color: white;
+            font-size: 1.5rem;
+            margin-left: 5px;
+        }
+
+        /* Footer Styles */
+        .footer {
+            margin-top: 3rem;
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(76, 175, 80, 0.2); /* Green light with alpha */
+        }
+
+        .footer-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .footer-btn {
+            padding: 0.5rem 1.2rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .footer-btn:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .footer-btn i {
+            font-size: 1rem;
+        }
+
+        .copyright {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .modal-close:hover {
+            color: var(--primary);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        .modal-content {
+            margin-bottom: 1.5rem;
+            color: var(--text);
+            text-align: center;
+        }
+
+        .modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .modal-btn {
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .modal-btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .modal-btn-primary:hover {
+            background-color: var(--primary-light);
+        }
+
+        .modal-btn-secondary {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .modal-btn-secondary:hover {
+            background-color: rgba(76, 175, 80, 0.1); /* Green light with alpha */
         }
 
         @media (max-width: 768px) {
@@ -289,14 +486,41 @@
             .content-grid {
                 grid-template-columns: 1fr;
             }
+
+            .footer-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .modal-buttons {
+                flex-direction: column;
+            }
         }
-    </style></head>
+    </style>
+</head>
 <body>
-<div class="container">
+    <!-- Modal Popup -->
+    <div class="modal-overlay" id="channelModal">
+        <div class="modal">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <h3 class="modal-title">Important Notice</h3>
+            <p class="modal-content">You have to join these channels to proceed:</p>
+            <div class="modal-buttons">
+                <a href="https://t.me/Team_Delta_Official" target="_blank" class="modal-btn modal-btn-primary">
+                    <i class="fab fa-telegram"></i> Join Main Channel
+                </a>
+                <a href="https://t.me/+zp0kcItlrAExNjc9" target="_blank" class="modal-btn modal-btn-secondary">
+                    <i class="fab fa-telegram"></i> Join Backup Channel
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
         <div class="header">
             <div class="logo">
                 <i class="fas fa-atom"></i>
-                <span>Homework Discussion</span>
+                <span>Ch - 02 : Electric Potential And Dipole</span>
             </div>
             
             <div class="controls">
@@ -322,14 +546,25 @@
         <div id="lectures" class="tab-content active">
             <h2 style="margin-bottom: 1.5rem; color: var(--primary);">Video Lectures</h2>
             <div class="content-grid" id="lecturesGrid">
+                
                 <div class="content-card" data-search="homework discussion 01 : kinetics || extra lecture || recorded">
-                    <a href="https://d1d34p8vz63oiq.cloudfront.net/384acba8-6528-4687-851f-1de290865c65/master.mpd" target="_blank">
-                        <i class="fas fa-video"></i>
-                        <div class="content-info">
+                    <a href="https://d1d34p8vz63oiq.cloudfront.net/384acba8-6528-4687-851f-1de290865c65/master.mpd">
+                        <div class="content-thumbnail-container" style="position: relative;">
+                            <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/40faecca-9496-434f-9c75-d14ca1357d83.png?height=180&width=320" alt="Homework Discussion 01 : Kinetics || Extra Lecture || Recorded" class="content-thumbnail">
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <div class="content-body">
                             <div class="content-title">Homework Discussion 01 : Kinetics || Extra Lecture || Recorded</div>
+                            <div class="content-meta">
+                                <span>16 May 2025</span>
+                                <span><i class="far fa-clock"></i> 00:54:20</span>
+                            </div>
                         </div>
                     </a>
-                </div>    
+                </div>
+                        
             </div>
             <div class="no-results" id="lecturesNoResults">
                 <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem;"></i>
@@ -341,14 +576,22 @@
         <div id="notes" class="tab-content">
             <h2 style="margin-bottom: 1.5rem; color: var(--primary);">Study Notes</h2>
             <div class="content-grid" id="notesGrid">
+                
                 <div class="content-card" data-search="homework discussion 01 : class notes || lakshya jee 2026">
-                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/23eef619-d124-4331-8b71-e09398ad7484.pdf" target="_blank">
-                        <i class="fas fa-file-pdf"></i>
-                        <div class="content-info">
-                            <div class="content-title">Homework Discussion 01 : Class Notes || Lakshya JEE 2026</div>
+                    <a href="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/23eef619-d124-4331-8b71-e09398ad7484.pdf" target="_blank" rel="noopener noreferrer">
+                        <div class="content-body">
+                            <i class="fas fa-file-pdf content-icon"></i>
+                            <div class="content-info">
+                                <div class="content-title">Homework Discussion 01 : Class Notes || Lakshya JEE 2026</div>
+                                <div class="content-meta">
+                                    <span>PDF Document</span>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
+                
+                
             </div>
             <div class="no-results" id="notesNoResults">
                 <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem;"></i>
@@ -360,105 +603,126 @@
         <div id="dpp" class="tab-content">
             <h2 style="margin-bottom: 1.5rem; color: var(--primary);">Daily Practice Problems</h2>
             <div class="content-grid" id="dppGrid">
-                           
+                
             </div>
             <div class="no-results" id="dppNoResults">
                 <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem;"></i>
                 <p>No matching DPPs found</p>
             </div>
         </div>
+
+        <!-- Footer Section -->
+        <div class="footer">
+            <div class="footer-buttons">
+                <a href="http://www.aboutnomis.carrd.co" target="_blank" class="footer-btn">
+                    <i class="fas fa-user"></i> Owner - Nomis
+                </a>
+                <a href="http://www.aboutnomis.carrd.co" target="_blank" class="footer-btn">
+                    <i class="fas fa-globe"></i> Web
+                </a>
+                <a href="https://t.me/team_delta_official" target="_blank" class="footer-btn">
+                    <i class="fab fa-telegram"></i> Team Delta Official
+                </a>
+            </div>
+            <p class="copyright">© 2025 Study Portal. All rights reserved.</p>
+        </div>
     </div>
     
-    <script>
-        // Theme Toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const icon = themeToggle.querySelector('i');
-        
-        // Check for saved preference or use system preference
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.body.classList.add('dark-mode');
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const icon = themeToggle.querySelector('i');
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.body.classList.add('dark-mode');
+        icon.classList.replace('fa-moon', 'fa-sun');
+    }
+
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        if (document.body.classList.contains('dark-mode')) {
             icon.classList.replace('fa-moon', 'fa-sun');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            icon.classList.replace('fa-sun', 'fa-moon');
+            localStorage.setItem('theme', 'light');
         }
-        
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            if (document.body.classList.contains('dark-mode')) {
-                icon.classList.replace('fa-moon', 'fa-sun');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                icon.classList.replace('fa-sun', 'fa-moon');
-                localStorage.setItem('theme', 'light');
+    });
+
+    // Tab Switching
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    const tabIndicator = document.getElementById('tabIndicator');
+
+    function updateTabIndicator(activeBtn) {
+        const btnRect = activeBtn.getBoundingClientRect();
+        const tabsRect = activeBtn.parentElement.getBoundingClientRect();
+        tabIndicator.style.width = `${btnRect.width}px`;
+        tabIndicator.style.left = `${btnRect.left - tabsRect.left}px`;
+    }
+
+    function setActiveTab(tabId) {
+        tabButtons.forEach(btn => {
+            const isActive = btn.dataset.tab === tabId;
+            btn.classList.toggle('active', isActive);
+            if (isActive) updateTabIndicator(btn);
+        });
+
+        tabContents.forEach(content => {
+            content.classList.toggle('active', content.id === tabId);
+        });
+    }
+
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => setActiveTab(btn.dataset.tab));
+    });
+
+    // Initialize tab indicator
+    const initialActive = document.querySelector('.tab-btn.active');
+    if (initialActive) updateTabIndicator(initialActive);
+
+    // Search Functionality
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', function () {
+        const searchTerm = this.value.toLowerCase();
+
+        ['lectures', 'notes', 'dpp'].forEach(tab => {
+            const grid = document.getElementById(`${tab}Grid`);
+            const noResults = document.getElementById(`${tab}NoResults`);
+            let visibleItems = 0;
+
+            if (grid) {
+                const items = grid.querySelectorAll('.content-card');
+                items.forEach(item => {
+                    const matches = item.dataset.search.includes(searchTerm);
+                    item.style.display = matches ? 'block' : 'none';
+                    if (matches) visibleItems++;
+                });
+
+                noResults.style.display = visibleItems === 0 ? 'block' : 'none';
             }
         });
-        
-        // Tab Switching
-        const tabButtons = document.querySelectorAll('.tab-btn');
-        const tabContents = document.querySelectorAll('.tab-content');
-        const tabIndicator = document.getElementById('tabIndicator');
-        
-        function setActiveTab(tabId) {
-            // Update buttons
-            tabButtons.forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.dataset.tab === tabId) {
-                    btn.classList.add('active');
-                    // Move indicator
-                    const btnRect = btn.getBoundingClientRect();
-                    const tabsRect = btn.parentElement.getBoundingClientRect();
-                    tabIndicator.style.width = `${btnRect.width}px`;
-                    tabIndicator.style.left = `${btnRect.left - tabsRect.left}px`;
-                }
-            });
-            
-            // Update contents
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-                if (content.id === tabId) {
-                    content.classList.add('active');
-                }
-            });
+    });
+
+    // Modal Functionality
+    const channelModal = document.getElementById('channelModal');
+    const modalClose = document.getElementById('modalClose');
+
+    setTimeout(() => {
+        channelModal.classList.add('active');
+    }, 1000);
+
+    modalClose.addEventListener('click', () => {
+        channelModal.classList.remove('active');
+    });
+
+    channelModal.addEventListener('click', (e) => {
+        if (e.target === channelModal) {
+            channelModal.classList.remove('active');
         }
-        
-        tabButtons.forEach(btn => {
-            btn.addEventListener('click', () => setActiveTab(btn.dataset.tab));
-        });
-        
-        // Initialize tab indicator position
-        const activeBtn = document.querySelector('.tab-btn.active');
-        if (activeBtn) {
-            const btnRect = activeBtn.getBoundingClientRect();
-            const tabsRect = activeBtn.parentElement.getBoundingClientRect();
-            tabIndicator.style.width = `${btnRect.width}px`;
-            tabIndicator.style.left = `${btnRect.left - tabsRect.left}px`;
-        }
-        
-        // Search Functionality
-        const searchInput = document.getElementById('searchInput');
-        searchInput.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            
-            // Search in each tab
-            ['lectures', 'notes', 'dpp'].forEach(tab => {
-                const grid = document.getElementById(`${tab}Grid`);
-                const noResults = document.getElementById(`${tab}NoResults`);
-                let visibleItems = 0;
-                
-                if (grid) {
-                    const items = grid.querySelectorAll('.content-card');
-                    items.forEach(item => {
-                        const matches = item.dataset.search.includes(searchTerm);
-                        item.style.display = matches ? 'block' : 'none';
-                        if (matches) visibleItems++;
-                    });
-                    
-                    // Show/hide no results message
-                    noResults.style.display = visibleItems === 0 ? 'block' : 'none';
-                }
-            });
-        });
-    </script>
-    
+    });
+});
+</script>
 </body>
 </html>
-    
