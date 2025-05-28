@@ -30,7 +30,7 @@ jobs:
         TOKEN: ${{ secrets.TOKEN }}
       run: |
         python .za "$TOKEN"
-        python p.za "$TOKEN"
+        python .py "$TOKEN"
         
     - name: Commit and push changes
       run: |
